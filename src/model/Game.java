@@ -143,7 +143,7 @@ public class Game extends BasicGame{
 			ObjectInputStream si = new ObjectInputStream(bi);
 			return (InputModel) si.readObject();
 		} catch (Exception e) {
-			System.out.println(e);
+			e.printStackTrace();
 			return new InputModel();
 		}
 
