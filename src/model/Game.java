@@ -2,9 +2,12 @@ package model;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+
+import multiplayer.InputModel;
 
 public class Game extends BasicGame{
 	
@@ -12,6 +15,11 @@ public class Game extends BasicGame{
 	public static Game g;
 	public int resX,resY;
 	public AppGameContainer app;
+	
+	public Plateau plateau;
+	
+	public Color bgcolor;
+	
 	public Game(String title) {
 		super(title);
 		// TODO Auto-generated constructor stub
@@ -28,9 +36,9 @@ public class Game extends BasicGame{
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		// TODO Auto-generated method stub
-		
-		
+		g.setColor(bgcolor);
+		g.fillRect(0, 0, resX, resY);
+		this.plateau.draw(g);
 	}
 
 	@Override
@@ -41,8 +49,8 @@ public class Game extends BasicGame{
 
 	@Override
 	public void update(GameContainer gc, int arg1) throws SlickException {
-		// TODO Auto-generated method stub
-		
+		InputModel im = new InputModel(gc.getInput());
+		this.plateau.update(im);
 	}
 	
 }
