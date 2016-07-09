@@ -52,7 +52,7 @@ public class Game extends BasicGame{
 	DatagramSocket server;
 	DatagramSocket client;
 	// depots for receivers
-	public Vector<String> receivedMessage = new Vector<String>();
+	public Vector<byte[]> receivedMessage = new Vector<byte[]>();
 
 
 
@@ -121,11 +121,10 @@ public class Game extends BasicGame{
 		return f*Game.g.resX/Data.sizeXPlateau;
 	}
 
-	public void updatePlateauFromString(String serializedObject){
+	public void updatePlateauFromString(byte[] serializedObject){
 		// deserialize the object
 		try {
-			byte b[] = serializedObject.getBytes(); 
-			ByteArrayInputStream bi = new ByteArrayInputStream(b);
+			ByteArrayInputStream bi = new ByteArrayInputStream(serializedObject);
 			ObjectInputStream si = new ObjectInputStream(bi);
 			this.plateau = (Plateau) si.readObject();
 		} catch (Exception e) {
@@ -133,11 +132,10 @@ public class Game extends BasicGame{
 		}
 	}
 
-	public static InputModel getInputModelFromString(String serializedObject){
+	public static InputModel getInputModelFromString(byte[] serializedObject){
 		// deserialize the object
 		try {
-			byte b[] = serializedObject.getBytes().clone(); 
-			ByteArrayInputStream bi = new ByteArrayInputStream(b);
+			ByteArrayInputStream bi = new ByteArrayInputStream(serializedObject);
 			ObjectInputStream si = new ObjectInputStream(bi);
 			return (InputModel) si.readObject();
 		} catch (Exception e) {
@@ -173,8 +171,7 @@ public class Game extends BasicGame{
 				server.setSoTimeout(1);
 				server.receive(packet);
 
-				String msg = new String(packet.getData());
-				this.receivedMessage.addElement(msg);
+				this.receivedMessage.addElement(packet.getData());
 
 			} catch (SocketTimeoutException e) {
 				break;
