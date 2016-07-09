@@ -6,16 +6,16 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Circle;
 
 public class Player extends Objet implements java.io.Serializable{
-	
-	
+
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4186225280918342257L;
-	
+
 	public float radius;
-	
-	
+
+
 	public Player(float radius,Point p, float dt){
 		this.collisionBox = new Circle(p.x-radius/2f,p.y-radius/2f,radius);
 		this.dt = dt;
@@ -23,16 +23,16 @@ public class Player extends Objet implements java.io.Serializable{
 		this.setXY(p);
 		this.v = new Point(0,0);
 	}
-	
+
 	public void updateRadius(float r){
 		this.radius = r;
 		((Circle)this.collisionBox).setRadius(r);
 	}
-	
-	
+
+
 	@Override
 	public void updateSpec(InputModel im) {
-		
+
 		Point acc = new Point(0f,Data.G);
 		if(im.isKeyDown(Input.KEY_D)  ){
 			acc = Point.add(acc, new Point(contact ? Data.ACCContact : Data.ratioVertical*Data.ACCLibre ,0));
@@ -53,20 +53,16 @@ public class Player extends Objet implements java.io.Serializable{
 	public void draw(Graphics g) {
 		g.setColor(Color.orange);
 		g.setAntiAlias(true);
-		if(pold!=null && Point.sub(p, pold).norm()>10){
-			g.fillOval((pold.x-this.radius)*Data.ratioSpace,
-					(pold.y-this.radius)*Data.ratioSpace,
-					2*this.radius*Data.ratioSpace,2*this.radius*Data.ratioSpace);						
-		} else {
-			g.fillOval((p.x-this.radius)*Data.ratioSpace,
-					(p.y-this.radius)*Data.ratioSpace,
-					2*this.radius*Data.ratioSpace,2*this.radius*Data.ratioSpace);			
-		}
+
+		g.fillOval((p.x-this.radius)*Data.ratioSpace,
+				(p.y-this.radius)*Data.ratioSpace,
+				2*this.radius*Data.ratioSpace,2*this.radius*Data.ratioSpace);			
+
 
 		g.setAntiAlias(false);
 
 
 	}
-	
+
 
 }
