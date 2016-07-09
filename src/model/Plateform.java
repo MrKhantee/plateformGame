@@ -11,11 +11,17 @@ public class Plateform extends Objet{
 	Color color;
 	
 	public Plateform(float x, float y, float sizeX, float sizeY){
-		this.setXY(new Point(x, y));
 		this.collisionBox = new Rectangle(x,y,sizeX,sizeY);
+		this.setXY(new Point(x, y));
 		this.color = Color.white;
+		this.v = new Point(0,0);
 	}
 	
+	public void setXY(Point p){
+		this.p = p;
+		this.collisionBox.setX(p.x);
+		this.collisionBox.setY(p.y);
+	}
 	
 	public void draw(Graphics g){
 		g.setColor(this.color);
