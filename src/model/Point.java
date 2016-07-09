@@ -35,4 +35,8 @@ public class Point {
 	public  float norm(){
 		return (float)Math.sqrt(this.x*this.x+this.y*this.y);
 	}
+	
+	public String toString(){
+		return "x : "+this.x+" y : "+this.y;
+	}
 }
