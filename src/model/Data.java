@@ -12,7 +12,7 @@ public class Data {
 
 	public static float maxLifepoints = 50f;
 
-	public static float damageBullet = 4f;
+	public static float damageBullet = 11f;
 	public static float damageLava = 0.5f;
 
 	public static float ACCContact = 65f;

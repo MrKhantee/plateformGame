@@ -25,11 +25,11 @@ public abstract class Objet implements java.io.Serializable{
 	
 	
 	public Point getV(Point a){
-		return Point.divide(Point.add(v, a), Data.DT);
+		return Point.add(v, Point.multiply(a, Data.DT));
 	}
 	
 	public Point getPos(){
-		return Point.divide(Point.add(p, v), Data.DT);
+		return Point.add(p, Point.multiply(v, Data.DT));
 	}
 
 	
