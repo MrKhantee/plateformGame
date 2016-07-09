@@ -33,7 +33,7 @@ public class Data {
 
 	
 	// Weapon
-	public static float ACCBullet = 40f;
+	public static float ACCBullet = 30f;
 	public static float Fbullet = 0.99f;
 	public static float bulletRadius = 3f;
 	public static float weaponRadius = 3f;
