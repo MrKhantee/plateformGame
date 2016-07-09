@@ -34,14 +34,13 @@ public class Game extends BasicGame{
 	public Color bgcolor = Color.black;
 
 
-	public boolean host = true;
 
 
 	/////////////////////////////
 	/// NETWORK & MULTIPLAYING///
 	/////////////////////////////
 
-	boolean multiplayer = false;
+	boolean multiplayer = true;
 	
 	// Host and client
 	String iphost = "192.168.1.117";
