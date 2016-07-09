@@ -3,8 +3,6 @@ package model;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 
-import multiplayer.InputModel;
-
 public abstract class Objet implements java.io.Serializable{
 	
 	

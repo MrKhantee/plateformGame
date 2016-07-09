@@ -5,8 +5,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Circle;
 
-import multiplayer.InputModel;
-
 public class Player extends Objet implements java.io.Serializable{
 	
 	

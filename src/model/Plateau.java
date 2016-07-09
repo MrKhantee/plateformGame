@@ -4,8 +4,6 @@ import java.util.Vector;
 
 import org.newdawn.slick.Graphics;
 
-import multiplayer.InputModel;
-
 public class Plateau implements java.io.Serializable{
 	
 	/**
