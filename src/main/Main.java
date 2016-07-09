@@ -35,6 +35,7 @@ public class Main {
 			resolutionY = 800;
 		}
 		try {
+			
 			Game game = new Game(resolutionX,resolutionY);
 			AppGameContainer app = new AppGameContainer( game );
 			game.app = app;
