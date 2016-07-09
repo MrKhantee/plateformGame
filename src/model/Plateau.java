@@ -157,6 +157,7 @@ public class Plateau implements java.io.Serializable{
 	public void handleCollision(Player p , Bullet b){
 		p.lifepoints-= Data.damageBullet;
 		b.lifepoints = -1f;
+		p.timeoutGotHit = 10;
 	}
 	
 	public void handleCollision(Plateform p , Bullet b){

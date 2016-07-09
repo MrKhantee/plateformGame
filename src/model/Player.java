@@ -19,6 +19,8 @@ public class Player extends Objet {
 
 	public float radius;
 	
+	public int timeoutGotHit = 0;
+	
 	public boolean directionRegard = true;
 	
 
@@ -73,7 +75,12 @@ public class Player extends Objet {
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(Color.orange);
+		if(timeoutGotHit>0){
+			g.setColor(Color.red);	
+			timeoutGotHit--;
+		} else {
+			g.setColor(Color.orange);			
+		}
 		g.setAntiAlias(true);
 
 		g.fillOval((p.x-this.radius)*Data.ratioSpace,
@@ -95,7 +102,6 @@ public class Player extends Objet {
 		// Dessine son arme
 		weapon.draw(g);
 		
-
 	}
 
 	@Override
@@ -108,6 +114,7 @@ public class Player extends Objet {
 				}
 				if(Game.g.plateau.plateforms.get(indexPlateforme.get(i)) instanceof PlateformLava){
 					this.lifepoints -= Data.damageLava;
+					timeoutGotHit = 10;
 				}
 			}
 		}
