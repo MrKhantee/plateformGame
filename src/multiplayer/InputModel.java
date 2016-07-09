@@ -20,6 +20,21 @@ public class InputModel implements java.io.Serializable{
 		keydown = new Vector<Integer>();
 		keypressed = new Vector<Integer>();
 	}
+	public InputModel(String input){
+		keydown = new Vector<Integer>();
+		keypressed = new Vector<Integer>();
+		
+		String[] res = input.split(";");
+		String[] down = res[0].split(",");
+		String[] pressed = res[1].split(",");
+		
+		for(String s  : down){
+			keydown.add(Integer.parseInt(s));
+		}
+		for(String s  : pressed){
+			keypressed.add(Integer.parseInt(s));
+		}
+	}
 	
 	public InputModel(Input input){
 		keydown = new Vector<Integer>();
@@ -43,6 +58,19 @@ public class InputModel implements java.io.Serializable{
 	}
 	public boolean isKeyPressed(int key){
 		return keypressed.contains(key);
+	}
+	
+	@Override
+	public String toString(){
+		String result = "";
+		for(int k : keydown){
+			result+= k+",";
+		}		
+		result +=";";
+		for(int k : keypressed){
+			result+= k+",";
+		}
+		return result;
 	}
 
 }
