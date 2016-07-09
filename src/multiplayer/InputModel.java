@@ -9,7 +9,7 @@ public class InputModel implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 9213348578257473677L;
+	private static final long serialVersionUID = 9213348578257423677L;
 	public boolean isPressedLeftClick;
 	public boolean isPressedRightClick;
 	
