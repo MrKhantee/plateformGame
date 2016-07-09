@@ -1,5 +1,11 @@
 package model;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Vector;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -20,6 +26,9 @@ public class Game extends BasicGame{
 	
 	public Color bgcolor = Color.black;
 	
+
+	public boolean host = true;
+
 	
 	public Game(String title) {
 		super(title);
@@ -34,6 +43,28 @@ public class Game extends BasicGame{
 		this.resX = resolutionX;
 		this.resY = resolutionY;
 		this.plateau = new Plateau();
+		String serializedObject = "";
+
+		 // serialize the object
+		 try {
+		     ByteArrayOutputStream bo = new ByteArrayOutputStream();
+		     ObjectOutputStream so = new ObjectOutputStream(bo);
+		     so.writeObject(plateau);
+		     so.flush();
+		     serializedObject = bo.toString();
+		 } catch (Exception e) {
+		     System.out.println(e);
+		 }
+
+		 // deserialize the object
+		 try {
+		     byte b[] = serializedObject.getBytes(); 
+		     ByteArrayInputStream bi = new ByteArrayInputStream(b);
+		     ObjectInputStream si = new ObjectInputStream(bi);
+		     this.plateau = (Plateau) si.readObject();
+		 } catch (Exception e) {
+		     System.out.println(e);
+		 }
 	}
 
 	@Override
@@ -51,7 +82,14 @@ public class Game extends BasicGame{
 	@Override
 	public void update(GameContainer gc, int arg1) throws SlickException {
 		InputModel im = new InputModel(gc.getInput());
-		this.plateau.update(im);
+		if(host){
+			Vector<InputModel> ims = new Vector<InputModel>();
+			ims.add(im);
+			ims.add(new InputModel());
+			this.plateau.update(ims);			
+		} else {
+			
+		}
 	}
 	
 	public static float getPointToDraw(float f){

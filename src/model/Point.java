@@ -1,6 +1,6 @@
 package model;
 
-public class Point {
+public class Point implements java.io.Serializable{
 
 	public float x;
 	public float y;

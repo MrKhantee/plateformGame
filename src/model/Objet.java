@@ -6,7 +6,12 @@ import org.newdawn.slick.geom.Shape;
 
 import multiplayer.InputModel;
 
-public abstract class Objet {
+public abstract class Objet implements java.io.Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	// Physic
 	public Point p;
@@ -33,7 +38,12 @@ public abstract class Objet {
 
 	
 	public void setV(Point a){
-		v = Point.multiply(v, Data.F);
+		if(contact){
+			v = Point.multiply(v, Data.Fcontact);
+		}else{
+			Point.multiply(v, Data.Flibre);
+		}
+		
 		v =  Point.add(v, Point.multiply(a,dt));
 	}
 	
