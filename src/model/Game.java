@@ -140,10 +140,9 @@ public class Game extends BasicGame{
 	public static InputModel getInputModelFromString(String serializedObject){
 		// deserialize the object
 		try {
-			byte b[] = serializedObject.getBytes(); 
+			byte b[] = serializedObject.getBytes().clone(); 
 			ByteArrayInputStream bi = new ByteArrayInputStream(b);
 			ObjectInputStream si = new ObjectInputStream(bi);
-			si.readObject();
 			return (InputModel) si.readObject();
 		} catch (Exception e) {
 			e.printStackTrace();
