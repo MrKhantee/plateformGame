@@ -53,8 +53,13 @@ public class Player extends Objet{
 	public void draw(Graphics g) {
 		g.setColor(Color.orange);
 		g.setAntiAlias(true);
-		g.fillOval(this.p.x,this.p.y,this.radius,this.radius);
+		g.fillOval((p.x-0.5f*this.radius)*Data.ratioSpace,
+		(p.y-0.5f*this.radius)*Data.ratioSpace,
+		this.radius*Data.ratioSpace,this.radius*Data.ratioSpace);
+
 		g.setAntiAlias(false);
+
+
 	}
 	
 

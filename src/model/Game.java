@@ -54,4 +54,8 @@ public class Game extends BasicGame{
 		this.plateau.update(im);
 	}
 	
+	public static float getPointToDraw(float f){
+		return f*Game.g.resX/Data.sizeXPlateau;
+	}
+	
 }

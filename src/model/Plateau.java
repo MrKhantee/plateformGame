@@ -11,6 +11,8 @@ public class Plateau {
 	public Vector<Plateform> plateforms;
 	public Vector<Player> players;
 	
+	public float sizeX=2000, sizeY=1000;
+	
 	public Plateau(){
 		this.plateforms = new Vector<Plateform>();
 		this.players = new Vector<Player>();
