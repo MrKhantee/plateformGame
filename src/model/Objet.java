@@ -1,7 +1,10 @@
 package model;
 
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Shape;
+
+import multiplayer.InputModel;
 
 public abstract class Objet {
 	
@@ -36,17 +39,31 @@ public abstract class Objet {
 		this.setV(Point.multiply(Point.add(p, v), dt));
 	}
 	
-	
-	public void update(Point acc){
-		// Calculate acceleration considering the input
+	public void update(InputModel im){
 		// Update physic
-		updatePhysic(acc);
+		updatePhysic(im);
 		//Update Spec
-		updateSpec(acc);
+		updateSpec(im);
 	}
 	
-	public abstract void updateSpec(Point acc);
-	public void updatePhysic(Point acc){
+	public abstract void updateSpec(InputModel im);
+	public void updatePhysic(InputModel im){
+		// Switch given the input
+		Point acc = new Point(0,Data.G);
+		if(im.isKeyDown(Input.KEY_D)){
+			acc = Point.add(acc, new Point(Data.ACC,0));
+		}
+		if(im.isKeyDown(Input.KEY_Z)){
+			acc = Point.add(acc, new Point(0,-Data.ACC));
+		}
+		if(im.isKeyDown(Input.KEY_Q)){
+			acc = Point.add(acc, new Point(-Data.ACC,0));
+		}
+		if(im.isKeyDown(Input.KEY_S)){
+			acc = Point.add(acc, new Point(0,Data.ACC));
+		}
+		
+		
 		this.setV(acc);
 		this.setPos();
 	}

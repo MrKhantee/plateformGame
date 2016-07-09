@@ -4,14 +4,19 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Circle;
 
+import multiplayer.InputModel;
+
 public class Player extends Objet{
 	
 	
 	public float radius;
 	
 	
-	public Player(float radius,Point p){
+	public Player(float radius,Point p, float dt){
+		this.dt = dt;
 		this.radius = radius;
+		this.setXY(p);
+		this.setV(new Point(0,0));
 		this.collisionBox = new Circle(p.x,p.y,radius);
 	}
 	
@@ -21,7 +26,7 @@ public class Player extends Objet{
 	}
 	
 	@Override
-	public void updateSpec(Point acc) {
+	public void updateSpec(InputModel im) {
 		// Que faire spécifiquement avec le joueur ? 
 	}
 
