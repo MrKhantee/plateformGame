@@ -12,6 +12,7 @@ public class InputModel {
 	private Vector<Integer> keydown;
 	
 	public InputModel(Input input){
+		keydown = new Vector<Integer>();
 		this.isPressedLeftClick = input.isMousePressed(Input.MOUSE_LEFT_BUTTON);
 		this.isPressedRightClick = input.isMousePressed(Input.MOUSE_RIGHT_BUTTON);
 		for(int i=0; i<250; i++){

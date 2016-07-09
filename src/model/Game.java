@@ -18,7 +18,7 @@ public class Game extends BasicGame{
 	
 	public Plateau plateau;
 	
-	public Color bgcolor;
+	public Color bgcolor = Color.black;
 	
 	public Game(String title) {
 		super(title);
@@ -32,6 +32,7 @@ public class Game extends BasicGame{
 		Game.g = this;
 		this.resX = resolutionX;
 		this.resY = resolutionY;
+		this.plateau = new Plateau();
 	}
 
 	@Override
