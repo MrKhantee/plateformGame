@@ -4,18 +4,50 @@ import org.newdawn.slick.geom.Shape;
 
 public abstract class Objet {
 	
-	
-	private Point pos;
-	private Point v;
-	
+	// Physic
+	public Point p;
+	public Point v;
+	public float dt;
 	public Shape collisionBox;
 	
+	public void setXY(Point p){
+		this.p = p;
+		this.collisionBox.setCenterX(p.x);
+		this.collisionBox.setCenterY(p.y);
+	}
 	
-	public abstract void setXY(float x, float y);
 	
-//	public float getAcc(){
-//		return 
-//	}
+	public Point getV(Point a){
+		return Point.divide(Point.add(v, a), dt);
+	}
+	
+	public Point getPos(){
+		return Point.divide(Point.add(p, v), dt);
+	}
+
+	
+	public void setV(Point a){
+		this.v =  Point.multiply(Point.add(v, a), dt);
+	}
+	
+	
+	public void setPos(){
+		this.setV(Point.multiply(Point.add(p, v), dt));
+	}
+	
+	
+	public void update(Point acc){
+		// Update physic
+		updatePhysic(acc);
+		//Update Spec
+		updateSpec(acc);
+	}
+	
+	public abstract void updateSpec(Point acc);
+	public void updatePhysic(Point acc){
+		this.setV(acc);
+		this.setPos();
+	}
 	
 
 	

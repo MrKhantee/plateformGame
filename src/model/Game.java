@@ -42,7 +42,7 @@ public class Game extends BasicGame{
 	@Override
 	public void update(GameContainer gc, int arg1) throws SlickException {
 		// TODO Auto-generated method stub
-		
+		// Deplacement
 	}
 	
 }
