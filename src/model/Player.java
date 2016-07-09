@@ -5,7 +5,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Circle;
 
-public class Player extends Objet implements java.io.Serializable{
+public class Player extends Objet {
 
 
 	/**

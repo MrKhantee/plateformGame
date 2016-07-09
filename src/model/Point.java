@@ -2,6 +2,10 @@ package model;
 
 public class Point implements java.io.Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4966035179294055778L;
 	public float x;
 	public float y;
 	

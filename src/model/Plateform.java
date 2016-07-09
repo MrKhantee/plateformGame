@@ -4,7 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Plateform extends Objet{
+public class Plateform extends Objet {
 
 	/**
 	 * 
