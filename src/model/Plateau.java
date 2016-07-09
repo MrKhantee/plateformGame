@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 
 import plateform.Plateform;
 import plateform.PlateformGlace;
+import plateform.PlateformLava;
 import plateform.PlateformTrampoline;
 
 public class Plateau implements java.io.Serializable{
@@ -27,7 +28,7 @@ public class Plateau implements java.io.Serializable{
 		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(500f,50f),1));
 		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(50f,50f),2));
 		// Bords de la map
-		this.plateforms.addElement(new Plateform(0,Data.sizeYPlateau,Data.sizeXPlateau,400));
+		this.plateforms.addElement(new PlateformLava(0,Data.sizeYPlateau,Data.sizeXPlateau,400));
 		this.plateforms.addElement(new Plateform(0,-10,Data.sizeXPlateau,10));
 		this.plateforms.addElement(new Plateform(-10,0,10,Data.sizeYPlateau));
 		this.plateforms.addElement(new Plateform(Data.sizeXPlateau,0,10,Data.sizeYPlateau));
@@ -182,6 +183,7 @@ public class Plateau implements java.io.Serializable{
 	public void handleCollision(Player p , Bullet b){
 		p.lifepoints-= Data.damageBullet;
 		b.lifepoints = -1f;
+		p.timeoutGotHit = 10;
 	}
 	
 	public void handleCollision(Plateform p , Bullet b){

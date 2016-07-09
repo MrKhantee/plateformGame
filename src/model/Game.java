@@ -59,7 +59,6 @@ public class Game extends BasicGame{
 
 
 	public Game(int resolutionX, int resolutionY) {
-		// TODO Auto-generated constructor stub
 		super("Vicier");
 		Game.g = this;
 		resX = resolutionX;

@@ -7,6 +7,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Circle;
 
+import plateform.PlateformLava;
+
 public class Player extends Objet {
 
 
@@ -16,7 +18,10 @@ public class Player extends Objet {
 	
 
 	public float radius;
-
+	
+	public int timeoutGotHit = 0;
+	
+	public boolean directionRegard = true;
 	
 
 	public boolean isMoving;
@@ -50,7 +55,7 @@ public class Player extends Objet {
 //			isMoving = true;
 			acc = Point.add(acc, new Point(contact ? Data.ACCContact : Data.ratioVertical*Data.ACCLibre ,0));
 		}
-		if(im.isKeyPressed(Input.KEY_Z) && this.orientationContact.contains(4)){
+		if(im.isKeyPressed(Input.KEY_SPACE) && this.orientationContact.contains(4)){
 			this.v = Point.add(this.v, new Point(0f,-Data.speedJump));
 		}
 		if(im.isKeyDown(Input.KEY_Q) ){
@@ -61,6 +66,7 @@ public class Player extends Objet {
 			acc = Point.add(acc, new Point(0,contact ? Data.ACCContact : Data.ACCLibre));
 		}
 		this.setV(acc);
+		this.directionRegard = v.x>0;
 		this.weapon.v=  v.copy();
 		this.weapon.update(im);
 		weapon.setXY(p);
@@ -69,17 +75,33 @@ public class Player extends Objet {
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(Color.orange);
+		if(timeoutGotHit>0){
+			g.setColor(Color.red);	
+			timeoutGotHit--;
+		} else {
+			g.setColor(Color.orange);			
+		}
 		g.setAntiAlias(true);
 
 		g.fillOval((p.x-this.radius)*Data.ratioSpace,
 				(p.y-this.radius)*Data.ratioSpace,
 				2*this.radius*Data.ratioSpace,2*this.radius*Data.ratioSpace);			
 		g.setAntiAlias(false);
+		// Dessine ses yeux
+		g.setColor(Color.black);
+		g.fillOval((p.x)*Data.ratioSpace+(this.directionRegard ? 1f :-1f)*this.radius*0.2f-6, 
+				(p.y - this.radius*0.5f)*Data.ratioSpace,
+				12f,12f);
+		g.fillOval((p.x)*Data.ratioSpace+(this.directionRegard ? 1f :-1f)*this.radius*0.65f-6, 
+				(p.y - this.radius*0.5f)*Data.ratioSpace,
+				12f,12f);
+		// Dessine sa bouche
+		float ratioLP = this.lifepoints/Data.maxLifepoints;
+		g.setLineWidth(5f);
+		g.drawArc((p.x-0.5f*radius-(this.directionRegard ? -1f :1f)*0.4f*radius)*Data.ratioSpace, (p.y-0.5f*radius)*Data.ratioSpace, (radius)*Data.ratioSpace, (radius)*Data.ratioSpace, 80-ratioLP*50, 100+ratioLP*50);
 		// Dessine son arme
 		weapon.draw(g);
-
-
+		
 	}
 
 	@Override
@@ -89,6 +111,10 @@ public class Player extends Objet {
 			for(int i =0; i<this.indexPlateforme.size(); i++){
 				if(orientationContact.get(i)==4){
 					coefFrottement*=Game.g.plateau.plateforms.get(indexPlateforme.get(i)).coefFrottement;
+				}
+				if(Game.g.plateau.plateforms.get(indexPlateforme.get(i)) instanceof PlateformLava){
+					this.lifepoints -= Data.damageLava;
+					timeoutGotHit = 10;
 				}
 			}
 		}
