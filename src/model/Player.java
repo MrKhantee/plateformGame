@@ -31,6 +31,7 @@ public class Player extends Objet {
 		this.radius = radius;
 		this.setXY(p);
 		this.v = new Point(0,0);
+		this.lifepoints = Data.maxLifepoints;
 		this.idPlayer = idx;
 		this.weapon = new Weapon(idx,p);	
 	}

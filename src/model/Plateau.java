@@ -2,6 +2,7 @@ package model;
 
 import java.util.Vector;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
 import plateform.Plateform;
@@ -58,6 +59,14 @@ public class Plateau implements java.io.Serializable{
 				}
 				i+=1;
 			}
+			for(Bullet b : ply.weapon.bullets){
+				for(Player p : this.players){
+					if(p!=ply && p.collisionBox.intersects(b.collisionBox)){
+						this.handleCollision(p, b);
+					}
+				}
+				
+			}
 		}
 		
 	}
@@ -69,6 +78,23 @@ public class Plateau implements java.io.Serializable{
 		for(Player ply : this.players){
 			ply.draw(g);
 		}
+		
+		// Draw lifepoints
+		float sizeLifeX = 200f;
+		float sizeLifeY = 50f;
+		if(players.size()==2){
+			int idx = 0;
+			for(Player p : players ){
+				g.setColor(Color.white);
+				g.drawString("Player "+idx, 10f+300f*idx, 50f);
+				g.setColor(Color.red);
+				g.fillRect(50f+(300f)*idx,10f,sizeLifeX,sizeLifeY);
+				g.setColor(Color.green);
+				g.fillRect(50f+300f*idx,10f,sizeLifeX*p.lifepoints/Data.maxLifepoints,sizeLifeY);
+				idx++;
+			}
+		}
+
 	}
 	
 	public void handleCollision(Player ply, Plateform plt){
@@ -125,6 +151,15 @@ public class Plateau implements java.io.Serializable{
 		}
 		ply.orientationContact.add(sector);
 		ply.setXY(new Point(newX, newY));
+	}
+	
+	public void handleCollision(Player p , Bullet b){
+		p.lifepoints-= Data.damageBullet;
+		b.lifepoints = -1f;
+	}
+	
+	public void handleCollision(Plateform p , Bullet b){
+		b.lifepoints = -1f;
 	}
 	
 }
