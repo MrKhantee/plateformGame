@@ -18,7 +18,7 @@ public abstract class Objet implements java.io.Serializable{
 	public Point v;
 	public float dt;
 	public Shape collisionBox;
-	public Shape drawBox;
+	public boolean moving; // Tell is this object can move
 	
 	public void setXY(Point p){
 		this.p = p;
@@ -38,42 +38,21 @@ public abstract class Objet implements java.io.Serializable{
 	
 	public void setV(Point a){
 		a = Point.divide(a, (1f+v.norm()));
-		this.v =  Point.multiply(Point.add(v, a), dt);
+		this.v =  Point.add(v, Point.multiply(a,dt));
 	}
 	
 	public void setPos(){
-		this.setV(Point.multiply(Point.add(p, v), dt));
+		this.setXY(Point.add(p, Point.multiply(v,dt)));
 	}
 	
-	public void update(InputModel im){
-		// Update physic
-		updatePhysic(im);
+	public void update(InputModel im){		
 		//Update Spec
 		updateSpec(im);
+		setPos();
 	}
+
 	
-	public abstract void updateSpec(InputModel im);
-	public void updatePhysic(InputModel im){
-		// Switch given the input
-		Point acc = new Point(0,Data.G);
-		if(im.isKeyDown(Input.KEY_D)){
-			acc = Point.add(acc, new Point(Data.ACC,0));
-		}
-		if(im.isKeyDown(Input.KEY_Z)){
-			acc = Point.add(acc, new Point(0,-Data.ACC));
-		}
-		if(im.isKeyDown(Input.KEY_Q)){
-			acc = Point.add(acc, new Point(-Data.ACC,0));
-		}
-		if(im.isKeyDown(Input.KEY_S)){
-			acc = Point.add(acc, new Point(0,Data.ACC));
-		}
-		
-		
-		this.setV(acc);
-		this.setPos();
-	}
-	
+	public abstract void updateSpec(InputModel im);	 // What to do with inputs
 	public abstract void draw(Graphics g);
 	
 }

@@ -1,6 +1,6 @@
 package model;
 
-public class Point {
+public class Point implements java.io.Serializable{
 
 	public float x;
 	public float y;
@@ -34,5 +34,9 @@ public class Point {
 	
 	public  float norm(){
 		return (float)Math.sqrt(this.x*this.x+this.y*this.y);
+	}
+	
+	public String toString(){
+		return "x : "+this.x+" y : "+this.y;
 	}
 }
