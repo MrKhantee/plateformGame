@@ -51,8 +51,14 @@ public  class Weapon extends Objet {
 		for(Bullet b : bullets){
 			b.draw(g);
 		}
-		g.setColor(Color.cyan);
-		g.draw(collisionBox);
+
+	}
+
+
+	@Override
+	public void applyFrottement() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

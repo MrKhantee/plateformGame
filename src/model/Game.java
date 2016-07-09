@@ -38,7 +38,7 @@ public class Game extends BasicGame{
 	/// NETWORK & MULTIPLAYING///
 	/////////////////////////////
 
-	boolean multiplayer = true;
+	boolean multiplayer = false;
 	boolean host;
 	
 	// Host and client

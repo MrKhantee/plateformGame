@@ -40,6 +40,11 @@ public class Bullet extends Objet {
 				(p.y-this.radius)*Data.ratioSpace,
 				2*this.radius*Data.ratioSpace,2*this.radius*Data.ratioSpace);	
 	}
+	@Override
+	public void applyFrottement() {
+		// TODO Auto-generated method stub
+		this.v = Point.multiply(v, Data.Fbullet);
+	}
 
 
 

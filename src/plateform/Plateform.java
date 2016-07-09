@@ -1,8 +1,13 @@
-package model;
+package plateform;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
+
+import model.Data;
+import model.InputModel;
+import model.Objet;
+import model.Point;
 
 public class Plateform extends Objet {
 
@@ -13,6 +18,8 @@ public class Plateform extends Objet {
 
 	Color color;
 
+	public float coefFrottement = Data.Fplateforme;
+	
 	float sizeX, sizeY;
 	
 	public Plateform(float x, float y, float sizeX, float sizeY){
@@ -20,7 +27,7 @@ public class Plateform extends Objet {
 		this.sizeX = sizeX;
 		this.sizeY = sizeY;
 		this.setXY(new Point(x, y));
-		this.color = Color.white;
+		this.color = Color.green;
 		this.v = new Point(0,0);
 	}
 	
@@ -38,6 +45,12 @@ public class Plateform extends Objet {
 
 	@Override
 	public void updateSpec(InputModel im) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void applyFrottement() {
 		// TODO Auto-generated method stub
 		
 	}

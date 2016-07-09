@@ -4,6 +4,10 @@ import java.util.Vector;
 
 import org.newdawn.slick.Graphics;
 
+import plateform.Plateform;
+import plateform.PlateformGlace;
+import plateform.PlateformTrampoline;
+
 public class Plateau implements java.io.Serializable{
 	
 	/**
@@ -19,12 +23,18 @@ public class Plateau implements java.io.Serializable{
 		this.players = new Vector<Player>();
 		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(500f,50f),1));
 		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(50f,50f),2));
-		this.plateforms.addElement(new Plateform(0,Data.sizeYPlateau-10,Data.sizeXPlateau,400));
-		this.plateforms.addElement(new Plateform(0,0,Data.sizeXPlateau,10));
-		this.plateforms.addElement(new Plateform(0,0,10,Data.sizeYPlateau));
-		this.plateforms.addElement(new Plateform(Data.sizeXPlateau-10,0,10,Data.sizeYPlateau));
-		this.plateforms.addElement(new Plateform(350,Data.sizeYPlateau-400,300,10));
-		this.plateforms.addElement(new Plateform(1200,Data.sizeYPlateau-700,250,10));
+		// Bords de la map
+		this.plateforms.addElement(new Plateform(0,Data.sizeYPlateau,Data.sizeXPlateau,400));
+		this.plateforms.addElement(new Plateform(0,-10,Data.sizeXPlateau,10));
+		this.plateforms.addElement(new Plateform(-10,0,10,Data.sizeYPlateau));
+		this.plateforms.addElement(new Plateform(Data.sizeXPlateau,0,10,Data.sizeYPlateau));
+		// Autres 
+		this.plateforms.addElement(new PlateformGlace(350,Data.sizeYPlateau-350,400,10));
+		this.plateforms.addElement(new PlateformTrampoline(1750,800,100,10));
+		this.plateforms.addElement(new PlateformTrampoline(50,600,100,10));
+		this.plateforms.addElement(new Plateform(1200,Data.sizeYPlateau-700,400,10));
+		this.plateforms.addElement(new Plateform(250,1030,1420,10));
+
 	}
 
 	public void update(Vector<InputModel> ims){
@@ -34,14 +44,19 @@ public class Plateau implements java.io.Serializable{
 			
 		for(int i=0; i<this.players.size(); i++){
 			this.players.get(i).update(ims.get(i));
-			players.get(i).contact = false;
 		}
 		// Gerer les collisions entre players et plateforme
+		int i = 0;
 		for(Player ply : this.players){
+			ply.indexPlateforme.clear();
+			ply.orientationContact.clear();
+			i=0;
 			for(Plateform plt : this.plateforms){
 				if(plt.collisionBox.intersects(ply.collisionBox)){
 					this.handleCollision(ply, plt);
+					ply.indexPlateforme.add(i);
 				}
+				i+=1;
 			}
 		}
 		
@@ -66,7 +81,6 @@ public class Plateau implements java.io.Serializable{
 		 * 		4: en bas
 		 *	puis on �jecte le point au bord du c�t� correspondant via projection
 		 */
-		ply.contact = true;
 		float oX, oY;
 		oX = plt.collisionBox.getCenterX();
 		oY = plt.collisionBox.getCenterY();
@@ -96,15 +110,20 @@ public class Plateau implements java.io.Serializable{
 		float newY = ply.p.y;
 		switch(sector){
 		case 1: newX = plt.collisionBox.getMaxX()+ply.collisionBox.getBoundingCircleRadius();
+		ply.v.x=0;
 		break;
 		case 2:	newY = plt.collisionBox.getMaxY()+ply.collisionBox.getBoundingCircleRadius();
+		ply.v.y=0;
 		break;
 		case 3: newX = plt.collisionBox.getMinX()-ply.collisionBox.getBoundingCircleRadius();
+		ply.v.x=0;
 		break;
 		case 4: newY = plt.collisionBox.getMinY()-ply.collisionBox.getBoundingCircleRadius();
+		ply.v.y=(plt instanceof PlateformTrampoline ? -1.2f*Data.speedJump : 0);
 		break;
 		default:
 		}
+		ply.orientationContact.add(sector);
 		ply.setXY(new Point(newX, newY));
 	}
 	
