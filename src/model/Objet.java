@@ -9,11 +9,11 @@ public abstract class Objet implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2296061632203406519L;
+	
 	// Physic
 	public Point p;
 	public Point v;
-	public float dt;
+	int idPlayer;
 	public transient Shape collisionBox;
 	public boolean moving; // Tell is this object can move
 	public boolean contact=false;
@@ -26,11 +26,11 @@ public abstract class Objet implements java.io.Serializable{
 	
 	
 	public Point getV(Point a){
-		return Point.divide(Point.add(v, a), dt);
+		return Point.divide(Point.add(v, a), Data.DT);
 	}
 	
 	public Point getPos(){
-		return Point.divide(Point.add(p, v), dt);
+		return Point.divide(Point.add(p, v), Data.DT);
 	}
 
 	
@@ -41,11 +41,11 @@ public abstract class Objet implements java.io.Serializable{
 			Point.multiply(v, Data.Flibre);
 		}
 		
-		v =  Point.add(v, Point.multiply(a,dt));
+		v =  Point.add(v, Point.multiply(a,Data.DT));
 	}
 	
 	public void setPos(){
-		this.setXY(Point.add(p, Point.multiply(v,dt)));
+		this.setXY(Point.add(p, Point.multiply(v,Data.DT)));
 	}
 	
 	public void update(InputModel im){		

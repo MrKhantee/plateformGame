@@ -9,12 +9,23 @@ public class Data {
 	public static float ratioSpace;
 	public static float G = 19.8f;
 
+	
+	// ALL
 	public static float ACCContact = 90f;
 	public static float ACCLibre = 20f;
-	public static float RADIUS_PLAYER  = 20f;
 	public static float DT = 10f/Main.framerate;
 	public static float Flibre = 0.80f;
 	public static float Fcontact = 0.70f;
-	public static float speedJump = 120f;
 	public static float ratioVertical = 0.6f;
+	
+	// Player
+	public static float RADIUS_PLAYER  = 20f;
+	public static float speedJump = 120f;
+	
+	// Weapon
+	public static float ACCBullet = 50f;
+	public static float Fbullet = 0.99f;
+	public static float bulletRadius = 3f;
+	public static float weaponRadius = 3f;
+	public static float chargeTime = 0.5f;
 }

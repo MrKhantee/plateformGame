@@ -5,7 +5,7 @@ public class Point implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4966035179294055778L;
+	
 	public float x;
 	public float y;
 	
@@ -25,6 +25,10 @@ public class Point implements java.io.Serializable{
 		return new Point(p1.x+p2.x,p1.y+p2.y);
 	}
 	
+	
+	public Point copy(){
+		return new Point(this.x,this.y);
+	}
 	public static Point divide(Point p1,float divider){
 		 return new Point(p1.x/divider,p1.y/divider);
 	}

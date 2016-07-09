@@ -11,17 +11,19 @@ public class Player extends Objet {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4186225280918342257L;
+	
 
 	public float radius;
-
-
-	public Player(float radius,Point p, float dt){
-		this.collisionBox = new Circle(p.x-radius/2f,p.y-radius/2f,radius);
-		this.dt = dt;
+	public Weapon weapon;
+	
+	
+	public Player(float radius,Point p,int idx){
+		this.collisionBox = new Circle(p.x-radius/2f,p.y-radius/2f,radius);	
 		this.radius = radius;
 		this.setXY(p);
 		this.v = new Point(0,0);
+		this.idPlayer = idx;
+		this.weapon = new Weapon(idx,p);	
 	}
 
 	public void updateRadius(float r){
@@ -47,6 +49,10 @@ public class Player extends Objet {
 			acc = Point.add(acc, new Point(0,contact ? Data.ACCContact : Data.ACCLibre));
 		}
 		this.setV(acc);
+		this.weapon.v=  v.copy();
+		this.weapon.update(im);
+		weapon.setXY(p);
+		
 	}
 
 	@Override
@@ -57,9 +63,9 @@ public class Player extends Objet {
 		g.fillOval((p.x-this.radius)*Data.ratioSpace,
 				(p.y-this.radius)*Data.ratioSpace,
 				2*this.radius*Data.ratioSpace,2*this.radius*Data.ratioSpace);			
-
-
 		g.setAntiAlias(false);
+		// Dessine son arme
+		weapon.draw(g);
 
 
 	}

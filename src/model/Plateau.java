@@ -9,7 +9,7 @@ public class Plateau implements java.io.Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -3627246755773898380L;
+	
 	public Vector<Plateform> plateforms;
 	public Vector<Player> players;
 
@@ -17,8 +17,8 @@ public class Plateau implements java.io.Serializable{
 	public Plateau(){
 		this.plateforms = new Vector<Plateform>();
 		this.players = new Vector<Player>();
-		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(500f,50f),Data.DT));
-		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(50f,50f),Data.DT));
+		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(500f,50f),1));
+		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(50f,50f),2));
 		this.plateforms.addElement(new Plateform(0,Data.sizeYPlateau-10,Data.sizeXPlateau,400));
 		this.plateforms.addElement(new Plateform(0,0,Data.sizeXPlateau,10));
 		this.plateforms.addElement(new Plateform(0,0,10,Data.sizeYPlateau));
@@ -31,8 +31,6 @@ public class Plateau implements java.io.Serializable{
 		for(Plateform plt : this.plateforms){
 			plt.update(null);
 		}
-
-
 			
 		for(int i=0; i<this.players.size(); i++){
 			this.players.get(i).update(ims.get(i));
