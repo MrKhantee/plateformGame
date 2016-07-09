@@ -33,7 +33,9 @@ public class Player extends Objet{
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(Color.orange);
-		g.drawOval(this.p.x,this.p.y,this.radius,this.radius);
+		g.drawOval((p.x-0.5f*this.radius)*Data.ratioSpace,
+				(p.y-0.5f*this.radius)*Data.ratioSpace,
+				this.radius*Data.ratioSpace,this.radius*Data.ratioSpace);
 	}
 	
 

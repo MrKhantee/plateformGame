@@ -9,9 +9,13 @@ import multiplayer.InputModel;
 public class Plateform extends Objet{
 
 	Color color;
+
+	float sizeX, sizeY;
 	
 	public Plateform(float x, float y, float sizeX, float sizeY){
 		this.collisionBox = new Rectangle(x,y,sizeX,sizeY);
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
 		this.setXY(new Point(x, y));
 		this.color = Color.white;
 		this.v = new Point(0,0);
@@ -25,7 +29,7 @@ public class Plateform extends Objet{
 	
 	public void draw(Graphics g){
 		g.setColor(this.color);
-		g.fill(this.collisionBox);
+		g.fillRect(p.x*Data.ratioSpace, p.y*Data.ratioSpace, sizeX*Data.ratioSpace, sizeY*Data.ratioSpace);
 	}
 
 

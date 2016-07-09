@@ -13,6 +13,7 @@ public abstract class Objet {
 	public Point v;
 	public float dt;
 	public Shape collisionBox;
+	public Shape drawBox;
 	
 	public void setXY(Point p){
 		this.p = p;
