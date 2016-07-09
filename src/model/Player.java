@@ -56,10 +56,8 @@ public class Player extends Objet implements java.io.Serializable{
 		g.fillOval((p.x-this.radius)*Data.ratioSpace,
 		(p.y-this.radius)*Data.ratioSpace,
 		2*this.radius*Data.ratioSpace,2*this.radius*Data.ratioSpace);
-		g.setColor(Color.cyan);
 
 		g.setAntiAlias(false);
-		g.draw(collisionBox);
 
 
 	}
