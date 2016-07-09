@@ -101,19 +101,23 @@ public class Game extends BasicGame{
 			ims.add(im);
 			this.handleMultiReceiver();
 			if(multiplayer && this.receivedMessage.size()>0){
+				if(this.receivedMessage.size()>1)
+					System.out.println("vaneau");
 				ims.add(Game.getInputModelFromString(this.receivedMessage.lastElement()));
 			} else {
 				ims.add(new InputModel());
 			}
 			this.plateau.update(ims);	
 			// on envoie le plateau
-			this.send(this.serializePlateau());
+			this.send(serialize(this.plateau));
 		} else {
 			// on envoie l'input
-			this.send(serializeInput(im));
+			this.send(serialize(im));
 			// on recoit le plateau
 			this.handleMultiReceiver();
 			if(this.receivedMessage.size()>0){
+				if(this.receivedMessage.size()>1)
+					System.out.println("vaneau");
 				this.updatePlateauFromString(this.receivedMessage.lastElement());
 			}
 		}
@@ -141,6 +145,7 @@ public class Game extends BasicGame{
 			byte b[] = serializedObject.getBytes(); 
 			ByteArrayInputStream bi = new ByteArrayInputStream(b);
 			ObjectInputStream si = new ObjectInputStream(bi);
+			si.readObject();
 			return (InputModel) si.readObject();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -149,30 +154,16 @@ public class Game extends BasicGame{
 
 	}
 
-	public String serializePlateau(){
-		String serializedObject = "";
-		// serialize the object
-		try {
-			ByteArrayOutputStream bo = new ByteArrayOutputStream();
-			ObjectOutputStream so = new ObjectOutputStream(bo);
-			so.writeObject(plateau);
-			so.flush();
-			serializedObject = bo.toString();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return serializedObject;
-	}
 	
-	public static String serializeInput(InputModel im){
-		String serializedObject = "";
+	public static byte[] serialize(Object o){
+		byte[] serializedObject = new byte[0];
 		// serialize the object
 		try {
 			ByteArrayOutputStream bo = new ByteArrayOutputStream();
 			ObjectOutputStream so = new ObjectOutputStream(bo);
-			so.writeObject(im);
+			so.writeObject(o);
 			so.flush();
-			serializedObject = bo.toString();
+			serializedObject = bo.toByteArray();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -201,13 +192,12 @@ public class Game extends BasicGame{
 		}
 	}
 
-	public void send(String message) {
+	public void send(byte[] mb) {
 		//si on est sur le point de commencer à jouer, on n'envoie plus de requête de ping
 		InetAddress address = iahost;
 		if(host){
 			address = iaclient;
 		}
-		byte[] mb = (message).getBytes();
 		DatagramPacket packet = new DatagramPacket(mb, mb.length, address, this.port);
 		packet.setData(mb);
 		try {
