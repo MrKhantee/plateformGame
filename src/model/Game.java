@@ -40,6 +40,8 @@ public class Game extends BasicGame{
 	/// NETWORK & MULTIPLAYING///
 	/////////////////////////////
 
+	boolean multiplayer = false;
+	
 	// Host and client
 	String iphost = "192.168.1.117";
 	String ipclient = "192.168.1.125";
@@ -91,11 +93,11 @@ public class Game extends BasicGame{
 	@Override
 	public void update(GameContainer gc, int arg1) throws SlickException {
 		InputModel im = new InputModel(gc.getInput());
-		if(host){
+		if(!multiplayer || host){
 			Vector<InputModel> ims = new Vector<InputModel>();
 			ims.add(im);
 			this.handleMultiReceiver();
-			if(this.receivedMessage.size()>0){
+			if(multiplayer && this.receivedMessage.size()>0){
 				ims.add(Game.getInputModelFromString(this.receivedMessage.lastElement()));
 			} else {
 				ims.add(new InputModel());
