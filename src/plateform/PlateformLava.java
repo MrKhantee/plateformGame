@@ -10,7 +10,7 @@ import model.Point;
 
 public class PlateformLava extends Plateform{
 	
-	private transient Vector<Point> lumieres;
+	private transient Vector<Point> lumieres = new Vector<Point>();
 	private transient int timeToGo = 0;
 	
 	public PlateformLava(float x, float y, float sizeX, float sizeY) {
@@ -23,7 +23,7 @@ public class PlateformLava extends Plateform{
 	public void draw(Graphics g){
 		if(timeToGo==0){
 			timeToGo=30;
-			lumieres.clear();
+			lumieres = new Vector<Point>();
 			for(int i=0; i<1000; i++){
 				lumieres.add(new Point((float)(p.x*Data.ratioSpace+Math.random()*collisionBox.getWidth()*Data.ratioSpace), 
 					(float)(p.y*Data.ratioSpace+Math.random()*collisionBox.getHeight()*Data.ratioSpace)));
