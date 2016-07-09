@@ -59,7 +59,7 @@ public class Player extends Objet implements java.io.Serializable{
 		g.setColor(Color.cyan);
 
 		g.setAntiAlias(false);
-		g.fill(collisionBox);
+		g.draw(collisionBox);
 
 
 	}

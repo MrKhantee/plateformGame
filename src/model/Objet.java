@@ -14,7 +14,7 @@ public abstract class Objet implements java.io.Serializable{
 	public Point p;
 	public Point v;
 	public float dt;
-	public Shape collisionBox;
+	public transient Shape collisionBox;
 	public boolean moving; // Tell is this object can move
 	public boolean contact=false;
 	
