@@ -1,18 +1,17 @@
 package model;
 
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Shape;
 
 import multiplayer.InputModel;
 
 public abstract class Objet implements java.io.Serializable{
 	
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 2296061632203406519L;
 	// Physic
 	public Point p;
 	public Point v;

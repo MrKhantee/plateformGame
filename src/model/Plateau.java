@@ -8,6 +8,10 @@ import multiplayer.InputModel;
 
 public class Plateau implements java.io.Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3627246755773898380L;
 	public Vector<Plateform> plateforms;
 	public Vector<Player> players;
 

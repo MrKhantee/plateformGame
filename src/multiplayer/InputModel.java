@@ -15,6 +15,7 @@ public class InputModel implements java.io.Serializable{
 	
 	private Vector<Integer> keydown;
 	private Vector<Integer> keypressed;
+	
 	public InputModel(){
 		keydown = new Vector<Integer>();
 		keypressed = new Vector<Integer>();

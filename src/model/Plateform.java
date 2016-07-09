@@ -8,6 +8,11 @@ import multiplayer.InputModel;
 
 public class Plateform extends Objet{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -584862308295898838L;
+
 	Color color;
 
 	float sizeX, sizeY;
