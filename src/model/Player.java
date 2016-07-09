@@ -51,6 +51,8 @@ public class Player extends Objet implements java.io.Serializable{
 
 	@Override
 	public void draw(Graphics g) {
+		if(Point.sub(p, pold).norm()>10)
+			return;
 		g.setColor(Color.orange);
 		g.setAntiAlias(true);
 		g.fillOval((p.x-this.radius)*Data.ratioSpace,

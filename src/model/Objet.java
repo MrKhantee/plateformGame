@@ -12,6 +12,7 @@ public abstract class Objet implements java.io.Serializable{
 	private static final long serialVersionUID = 2296061632203406519L;
 	// Physic
 	public Point p;
+	public Point pold;
 	public Point v;
 	public float dt;
 	public transient Shape collisionBox;
@@ -19,6 +20,7 @@ public abstract class Objet implements java.io.Serializable{
 	public boolean contact=false;
 	
 	public void setXY(Point p){
+		this.pold = this.p;
 		this.p = p;
 		this.collisionBox.setCenterX(p.x);
 		this.collisionBox.setCenterY(p.y);
