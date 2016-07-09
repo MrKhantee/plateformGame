@@ -13,36 +13,36 @@ public class InputModel implements java.io.Serializable{
 	public boolean isPressedLeftClick;
 	public boolean isPressedRightClick;
 	
-	private Vector<Integer> keydown;
-	private Vector<Integer> keypressed;
+	private Vector<String> keydown;
+	private Vector<String> keypressed;
 	
 	public InputModel(){
-		keydown = new Vector<Integer>();
-		keypressed = new Vector<Integer>();
+		keydown = new Vector<String>();
+		keypressed = new Vector<String>();
 	}
 	
 	public InputModel(Input input){
-		keydown = new Vector<Integer>();
-		keypressed = new Vector<Integer>();
+		keydown = new Vector<String>();
+		keypressed = new Vector<String>();
 		this.isPressedLeftClick = input.isMousePressed(Input.MOUSE_LEFT_BUTTON);
 		this.isPressedRightClick = input.isMousePressed(Input.MOUSE_RIGHT_BUTTON);
 		for(int i=0; i<250; i++){
 			if(input.isKeyDown(i)){
-				keydown.add(i);
+				keydown.add(""+i);
 			}
 		}
 		for(int i=0; i<250; i++){
 			if(input.isKeyPressed(i)){
-				keypressed.add(i);
+				keypressed.add(""+i);
 			}
 		}
 	}
 	
 	public boolean isKeyDown(int key){
-		return keydown.contains(key);
+		return keydown.contains(""+key);
 	}
 	public boolean isKeyPressed(int key){
-		return keypressed.contains(key);
+		return keypressed.contains(""+key);
 	}
 
 }
