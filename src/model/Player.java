@@ -19,6 +19,8 @@ public class Player extends Objet {
 
 	public float radius;
 	
+	public Color color;
+	
 	public int timeoutGotHit = 0;
 	
 	public boolean directionRegard = true;
@@ -38,6 +40,11 @@ public class Player extends Objet {
 		this.v = new Point(0,0);
 		this.lifepoints = Data.maxLifepoints;
 		this.idPlayer = idx;
+		if(idx==1){
+			this.color = Color.orange;
+		} else {
+			this.color = Color.cyan;
+		}
 		this.weapon = new Weapon(idx,p);	
 	}
 
@@ -79,7 +86,7 @@ public class Player extends Objet {
 			g.setColor(Color.red);	
 			timeoutGotHit--;
 		} else {
-			g.setColor(Color.orange);			
+			g.setColor(color);			
 		}
 		g.setAntiAlias(true);
 
