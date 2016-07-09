@@ -99,9 +99,7 @@ public class Game extends BasicGame{
 			ims.add(im);
 			this.handleMultiReceiver();
 			if(multiplayer && this.receivedMessage.size()>0){
-				if(this.receivedMessage.size()>1)
-					System.out.println("vaneau");
-				ims.add(Game.getInputModelFromString(this.receivedMessage.lastElement()));
+				ims.add(Game.getInputModelFromString(this.receivedMessage.remove(0)));
 			} else {
 				ims.add(new InputModel());
 			}
@@ -114,9 +112,7 @@ public class Game extends BasicGame{
 			// on recoit le plateau
 			this.handleMultiReceiver();
 			if(this.receivedMessage.size()>0){
-				if(this.receivedMessage.size()>1)
-					System.out.println("vaneau");
-				this.updatePlateauFromString(this.receivedMessage.lastElement());
+				this.updatePlateauFromString(this.receivedMessage.remove(0));
 			}
 		}
 	}
