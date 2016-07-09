@@ -12,8 +12,11 @@ public class Player extends Objet{
 	public float radius;
 	
 	
-	public Player(float radius,Point p){
+	public Player(float radius,Point p, float dt){
+		this.dt = dt;
 		this.radius = radius;
+		this.setXY(p);
+		this.setV(new Point(0,0));
 		this.collisionBox = new Circle(p.x,p.y,radius);
 	}
 	
