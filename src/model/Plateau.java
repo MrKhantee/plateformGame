@@ -69,6 +69,14 @@ public class Plateau implements java.io.Serializable{
 					}
 				}
 				
+				for(Plateform plt : this.plateforms){
+					if(plt.collisionBox.intersects(b.collisionBox)){
+						this.handleCollision(plt, b);
+						
+					}
+					
+				}
+				
 			}
 		}
 		
