@@ -41,7 +41,7 @@ public class Main {
 			game.app = app;
 			
 //			app.setDisplayMode(resolutionX, resolutionY,true);
-			app.setShowFPS(true);
+			
 			app.setDisplayMode(resolutionX, resolutionY,pleinEcran);
 			app.setAlwaysRender(false);
 			app.setUpdateOnlyWhenVisible(false);

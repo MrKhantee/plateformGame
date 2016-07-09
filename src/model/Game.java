@@ -24,7 +24,9 @@ public class Game extends BasicGame{
 
 
 	public static Game g;
-	public int resX,resY;
+	public static int currentPlayer=1;
+	public static int resX;
+	public static int resY;
 	public AppGameContainer app;
 
 	public Plateau plateau;
@@ -38,7 +40,7 @@ public class Game extends BasicGame{
 	/// NETWORK & MULTIPLAYING///
 	/////////////////////////////
 
-	boolean multiplayer = false;
+	boolean multiplayer = true;
 	boolean host;
 	
 	// Host and client
@@ -60,14 +62,19 @@ public class Game extends BasicGame{
 		// TODO Auto-generated constructor stub
 		super("Vicier");
 		Game.g = this;
-		this.resX = resolutionX;
-		this.resY = resolutionY;
-		Data.ratioSpace = Game.g.resX/Data.sizeXPlateau;
+		resX = resolutionX;
+		resY = resolutionY;
+		Data.ratioSpace = Game.resX/Data.sizeXPlateau;
 		this.plateau = new Plateau();
 		try {
 			iahost = InetAddress.getByName(iphost);
 			iaclient = InetAddress.getByName(ipclient);
 			this.host = InetAddress.getLocalHost().equals(iahost);
+			if(this.host){
+				Game.currentPlayer = 1;
+			}else{
+				Game.currentPlayer = 2;
+			}
 		} catch (UnknownHostException e) {}
 	}
 
@@ -120,7 +127,7 @@ public class Game extends BasicGame{
 	}
 
 	public static float getPointToDraw(float f){
-		return f*Game.g.resX/Data.sizeXPlateau;
+		return f*Game.resX/Data.sizeXPlateau;
 	}
 
 	public void updatePlateauFromString(byte[] serializedObject){

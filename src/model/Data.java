@@ -11,7 +11,7 @@ public class Data {
 
 
 	public static float maxLifepoints = 50f;
-	public static float damageBullet = 4f;
+	public static float damageBullet = 40f;
 	public static float ACCContact = 65f;
 	public static float ACCLibre = 40f;
 	public static float RADIUS_PLAYER  = 40f;

@@ -17,7 +17,9 @@ public class Plateau implements java.io.Serializable{
 	
 	public Vector<Plateform> plateforms;
 	public Vector<Player> players;
-
+	public boolean victory;
+	public int winner;
+	
 	
 	public Plateau(){
 		this.plateforms = new Vector<Plateform>();
@@ -69,9 +71,33 @@ public class Plateau implements java.io.Serializable{
 			}
 		}
 		
+		// Condition of victory
+		for(Player p : players){
+			if(p.lifepoints<0f){
+				System.out.println(p.idPlayer);
+				System.out.println("Vanneau game" + Game.currentPlayer);
+				System.out.println("vanneau2");
+				victory=true;
+				winner = 3-p.idPlayer;
+				break;
+			}
+		}
+		
 	}
 	
 	public void draw(Graphics g){
+		
+		if(victory){
+			if(winner==Game.currentPlayer){
+				g.setColor(Color.white);
+				g.drawString("Tu as vicier ton adversaire ", Game.resX/2, Game.resY/2);
+			}else{
+				g.setColor(Color.white);
+				g.drawString("Tu es vicier ...", Game.resX/2, Game.resY/2);
+			}
+			return;
+		}
+		
 		for(Plateform plt : this.plateforms){
 			plt.draw(g);
 		}
@@ -80,17 +106,17 @@ public class Plateau implements java.io.Serializable{
 		}
 		
 		// Draw lifepoints
-		float sizeLifeX = 200f;
-		float sizeLifeY = 50f;
+		float sizeLifeX = 100f;
+		float sizeLifeY = 10f;
 		if(players.size()==2){
 			int idx = 0;
 			for(Player p : players ){
 				g.setColor(Color.white);
-				g.drawString("Player "+idx, 10f+300f*idx, 50f);
+				g.drawString("Player "+idx, 10f+(Game.resX - 300f)*idx, 7f);
 				g.setColor(Color.red);
-				g.fillRect(50f+(300f)*idx,10f,sizeLifeX,sizeLifeY);
+				g.fillRect(100f+(Game.resX - 300f)*idx,10f,sizeLifeX,sizeLifeY);
 				g.setColor(Color.green);
-				g.fillRect(50f+300f*idx,10f,sizeLifeX*p.lifepoints/Data.maxLifepoints,sizeLifeY);
+				g.fillRect(100f+(Game.resX - 300f)*idx,10f,sizeLifeX*p.lifepoints/Data.maxLifepoints,sizeLifeY);
 				idx++;
 			}
 		}
