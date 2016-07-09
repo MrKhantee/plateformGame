@@ -42,8 +42,8 @@ public class Game extends BasicGame{
 	boolean host;
 	
 	// Host and client
-	String iphost = "192.168.1.117";
-	String ipclient = "192.168.1.125";
+	String iphost = "192.168.1.125";
+	String ipclient = "192.168.1.117";
 	InetAddress iahost;
 	InetAddress iaclient;
 	// port
