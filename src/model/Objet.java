@@ -1,5 +1,6 @@
 package model;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 
 public abstract class Objet {
@@ -49,6 +50,6 @@ public abstract class Objet {
 		this.setPos();
 	}
 	
-
+	public abstract void draw(Graphics g);
 	
 }
