@@ -47,6 +47,7 @@ public class Main {
 			app.setUpdateOnlyWhenVisible(false);
 			app.setClearEachFrame(true);
 			app.setVSync(true);
+			app.setShowFPS(false);
 			//app.setSmoothDeltas(true);
 			app.start();
 		} catch (SlickException e) {
