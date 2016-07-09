@@ -13,8 +13,8 @@ public class InputModel implements java.io.Serializable{
 	public boolean isPressedLeftClick;
 	public boolean isPressedRightClick;
 	
-	private Vector<Integer> keydown;
-	private Vector<Integer> keypressed;
+//	private Vector<Integer> keydown;
+//	private Vector<Integer> keypressed;
 	
 	public InputModel(){
 		keydown = new Vector<Integer>();
