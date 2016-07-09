@@ -15,7 +15,7 @@ public class Bullet extends Objet {
 	float radius;
 	
 	
-	public Bullet(Point origin, Point direction,Point v, int idx){
+	public Bullet(Point origin, Point direction, int idx){
 		idPlayer = idx;
 		this.collisionBox = new Circle(origin.x-radius/2f,origin.y-radius/2f,radius);
 		this.direction = Point.divide(direction, direction.norm());
@@ -27,7 +27,7 @@ public class Bullet extends Objet {
 	@Override
 	public void updateSpec(InputModel im) {
 		// Put acceleration toward direction
-		Point acc = new Point(0f,Data.G);
+		Point acc = new Point(0f,0.1f*Data.G);
 		acc = Point.add(acc, Point.multiply(direction,Data.ACCBullet ));
 		setV(acc);		
 	}

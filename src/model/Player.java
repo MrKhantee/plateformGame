@@ -16,7 +16,8 @@ public class Player extends Objet {
 	
 
 	public float radius;
-
+	
+	public boolean directionRegard = true;
 	
 
 	public boolean isMoving;
@@ -49,7 +50,7 @@ public class Player extends Objet {
 //			isMoving = true;
 			acc = Point.add(acc, new Point(contact ? Data.ACCContact : Data.ratioVertical*Data.ACCLibre ,0));
 		}
-		if(im.isKeyPressed(Input.KEY_Z) && this.orientationContact.contains(4)){
+		if(im.isKeyPressed(Input.KEY_SPACE) && this.orientationContact.contains(4)){
 			this.v = Point.add(this.v, new Point(0f,-Data.speedJump));
 		}
 		if(im.isKeyDown(Input.KEY_Q) ){
@@ -60,6 +61,7 @@ public class Player extends Objet {
 			acc = Point.add(acc, new Point(0,contact ? Data.ACCContact : Data.ACCLibre));
 		}
 		this.setV(acc);
+		this.directionRegard = v.x>0;
 		this.weapon.v=  v.copy();
 		this.weapon.update(im);
 		weapon.setXY(p);
@@ -75,9 +77,23 @@ public class Player extends Objet {
 				(p.y-this.radius)*Data.ratioSpace,
 				2*this.radius*Data.ratioSpace,2*this.radius*Data.ratioSpace);			
 		g.setAntiAlias(false);
+		// Dessine ses yeux
+		g.setColor(Color.black);
+		g.fillOval((p.x)*Data.ratioSpace+(this.directionRegard ? 1f :-1f)*this.radius*0.2f-6, 
+				(p.y - this.radius*0.5f)*Data.ratioSpace,
+				12f,12f);
+		g.fillOval((p.x)*Data.ratioSpace+(this.directionRegard ? 1f :-1f)*this.radius*0.65f-6, 
+				(p.y - this.radius*0.5f)*Data.ratioSpace,
+				12f,12f);
+		// Dessine sa bouche
+		g.setLineWidth(5f);
+		g.drawLine((p.x)*Data.ratioSpace+(this.directionRegard ? -1f :1f)*this.radius*0.2f, 
+				(p.y + this.radius*0.2f)*Data.ratioSpace,
+				(p.x)*Data.ratioSpace+(this.directionRegard ? 1f :-1f)*this.radius*0.7f, 
+				(p.y + this.radius*0.5f)*Data.ratioSpace);
 		// Dessine son arme
 		weapon.draw(g);
-
+		
 
 	}
 

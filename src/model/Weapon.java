@@ -28,9 +28,8 @@ public  class Weapon extends Objet {
 	
 
 	public void shot(Point direction){
-		System.out.println(direction);
 		if(direction.norm()>0){
-			bullets.add(new Bullet(p,direction,v,idPlayer));
+			bullets.add(new Bullet(p,direction,idPlayer));
 		}
 	}
 	
