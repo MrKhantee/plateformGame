@@ -16,7 +16,7 @@ public class Plateau {
 	public Plateau(){
 		this.plateforms = new Vector<Plateform>();
 		this.players = new Vector<Player>();
-		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(0f,0f),Data.DT));
+		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(50f,50f),Data.DT));
 		this.plateforms.addElement(new Plateform(0,Game.g.resY-10,Game.g.resX,10));
 		this.plateforms.addElement(new Plateform(350,Game.g.resY-400,300,10));
 		this.plateforms.addElement(new Plateform(1200,Game.g.resY-700,250,10));

@@ -32,4 +32,7 @@ public class Point {
 		 return p1.x*p2.x +p1.y*p2.y;
 	}
 	
+	public  float norm(){
+		return (float)Math.sqrt(this.x*this.x+this.y*this.y);
+	}
 }

@@ -13,11 +13,11 @@ public class Player extends Objet{
 	
 	
 	public Player(float radius,Point p, float dt){
+		this.collisionBox = new Circle(p.x,p.y,radius);
 		this.dt = dt;
 		this.radius = radius;
 		this.setXY(p);
-		this.setV(new Point(0,0));
-		this.collisionBox = new Circle(p.x,p.y,radius);
+		this.v = new Point(0,0);
 	}
 	
 	public void updateRadius(float r){
@@ -33,7 +33,7 @@ public class Player extends Objet{
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(Color.orange);
-		g.drawOval((p.x-0.5f*this.radius)*Data.ratioSpace,
+		g.fillOval((p.x-0.5f*this.radius)*Data.ratioSpace,
 				(p.y-0.5f*this.radius)*Data.ratioSpace,
 				this.radius*Data.ratioSpace,this.radius*Data.ratioSpace);
 	}

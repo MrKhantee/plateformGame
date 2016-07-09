@@ -32,9 +32,9 @@ public abstract class Objet {
 
 	
 	public void setV(Point a){
+		a = Point.divide(a, (1f+v.norm()));
 		this.v =  Point.multiply(Point.add(v, a), dt);
 	}
-	
 	
 	public void setPos(){
 		this.setV(Point.multiply(Point.add(p, v), dt));
