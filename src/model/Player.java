@@ -26,24 +26,21 @@ public class Player extends Objet{
 		((Circle)this.collisionBox).setRadius(r);
 	}
 	
+	
 	@Override
 	public void updateSpec(InputModel im) {
 		// Que faire spécifiquement avec le joueur ?
 		Point acc = new Point(0f,Data.G);
 		if(im.isKeyDown(Input.KEY_D)){
-			System.out.println("Vanneau D");
 			acc = Point.add(acc, new Point(Data.ACC,0));
 		}
-		if(im.isKeyDown(Input.KEY_Z)){
-			System.out.println("Vanneau Z");
-			acc = Point.add(acc, new Point(0,-Data.ACC));
+		if(im.isKeyDown(Input.KEY_Z) && this.contact){
+			this.v = Point.add(this.v, new Point(0f,-Data.speedJump));
 		}
 		if(im.isKeyDown(Input.KEY_Q)){
-			System.out.println("Vanneau Q");
 			acc = Point.add(acc, new Point(-Data.ACC,0));
 		}
 		if(im.isKeyDown(Input.KEY_S)){
-			System.out.println("Vanneau S");
 			acc = Point.add(acc, new Point(0,Data.ACC));
 		}
 		this.setV(acc);

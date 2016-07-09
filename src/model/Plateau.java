@@ -18,7 +18,7 @@ public class Plateau {
 		this.players = new Vector<Player>();
 		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(500f,50f),Data.DT));
 		this.plateforms.addElement(new Plateform(0,Game.g.resY-10,Game.g.resX,10));
-		this.plateforms.addElement(new Plateform(350,Game.g.resY-400,300,10));
+		this.plateforms.addElement(new Plateform(350,Game.g.resY-100,300,10));
 		this.plateforms.addElement(new Plateform(1200,Game.g.resY-700,250,10));
 	}
 
@@ -28,6 +28,7 @@ public class Plateau {
 		}
 		for(Player ply : this.players){
 			ply.update(im);
+			ply.contact = false;
 		}
 		// Gerer les collisions entre players et plateforme
 		for(Player ply : this.players){
@@ -59,6 +60,7 @@ public class Plateau {
 		 * 		4: en bas
 		 *	puis on �jecte le point au bord du c�t� correspondant via projection
 		 */
+		ply.contact = true;
 		float oX, oY;
 		oX = plt.collisionBox.getCenterX();
 		oY = plt.collisionBox.getCenterY();

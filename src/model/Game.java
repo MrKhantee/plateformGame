@@ -20,6 +20,7 @@ public class Game extends BasicGame{
 	
 	public Color bgcolor = Color.black;
 	
+	
 	public Game(String title) {
 		super(title);
 		// TODO Auto-generated constructor stub
@@ -45,7 +46,6 @@ public class Game extends BasicGame{
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

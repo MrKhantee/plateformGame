@@ -14,6 +14,7 @@ public abstract class Objet {
 	public float dt;
 	public Shape collisionBox;
 	public boolean moving; // Tell is this object can move
+	public boolean contact=false;
 	
 	public void setXY(Point p){
 		this.p = p;
@@ -32,8 +33,8 @@ public abstract class Objet {
 
 	
 	public void setV(Point a){
-		a = Point.divide(a, (1f+v.norm()));
-		this.v =  Point.add(v, Point.multiply(a,dt));
+		v = Point.multiply(v, Data.F);
+		v =  Point.add(v, Point.multiply(a,dt));
 	}
 	
 	public void setPos(){
