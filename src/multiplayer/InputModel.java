@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import org.newdawn.slick.Input;
 
-public class InputModel {
+public class InputModel implements java.io.Serializable{
 	
 	public boolean isPressedLeftClick;
 	public boolean isPressedRightClick;
