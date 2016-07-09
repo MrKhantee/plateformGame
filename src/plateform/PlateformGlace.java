@@ -9,7 +9,6 @@ public class PlateformGlace extends Plateform{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 807729861832742312L;
 
 	public PlateformGlace(float x, float y, float sizeX, float sizeY) {
 		super(x, y, sizeX, sizeY);

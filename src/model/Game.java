@@ -75,6 +75,8 @@ public class Game extends BasicGame{
 		g.setColor(bgcolor);
 		g.fillRect(0, 0, resX, resY);
 		this.plateau.draw(g);
+		
+		
 	}
 
 	@Override

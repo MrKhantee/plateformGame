@@ -40,9 +40,15 @@ public  class Weapon extends Objet {
 			shot(Point.sub(im.mouse, p));
 		}
 		// Update all the bullets
+		Vector<Bullet> toRemove = new Vector<Bullet>();
 		for(Bullet b : bullets){
-			b.update(im);
+			if(b.lifepoints<0f){
+				toRemove.addElement(b);
+			}else{
+				b.update(im);
+			}
 		}
+		bullets.removeAll(toRemove);
 	}
 	
 	public void draw(Graphics g){

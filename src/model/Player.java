@@ -7,6 +7,8 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.geom.Circle;
 
+import plateform.PlateformLava;
+
 public class Player extends Objet {
 
 
@@ -32,6 +34,7 @@ public class Player extends Objet {
 		this.radius = radius;
 		this.setXY(p);
 		this.v = new Point(0,0);
+		this.lifepoints = Data.maxLifepoints;
 		this.idPlayer = idx;
 		this.weapon = new Weapon(idx,p);	
 	}
@@ -86,11 +89,9 @@ public class Player extends Objet {
 				(p.y - this.radius*0.5f)*Data.ratioSpace,
 				12f,12f);
 		// Dessine sa bouche
+		float ratioLP = this.lifepoints/Data.maxLifepoints;
 		g.setLineWidth(5f);
-		g.drawLine((p.x)*Data.ratioSpace+(this.directionRegard ? -1f :1f)*this.radius*0.2f, 
-				(p.y + this.radius*0.2f)*Data.ratioSpace,
-				(p.x)*Data.ratioSpace+(this.directionRegard ? 1f :-1f)*this.radius*0.7f, 
-				(p.y + this.radius*0.5f)*Data.ratioSpace);
+		g.drawArc((p.x-0.5f*radius-(this.directionRegard ? -1f :1f)*0.4f*radius)*Data.ratioSpace, (p.y-0.5f*radius)*Data.ratioSpace, (radius)*Data.ratioSpace, (radius)*Data.ratioSpace, 80-ratioLP*50, 100+ratioLP*50);
 		// Dessine son arme
 		weapon.draw(g);
 		
@@ -104,6 +105,9 @@ public class Player extends Objet {
 			for(int i =0; i<this.indexPlateforme.size(); i++){
 				if(orientationContact.get(i)==4){
 					coefFrottement*=Game.g.plateau.plateforms.get(indexPlateforme.get(i)).coefFrottement;
+				}
+				if(Game.g.plateau.plateforms.get(indexPlateforme.get(i)) instanceof PlateformLava){
+					this.lifepoints -= Data.damageLava;
 				}
 			}
 		}

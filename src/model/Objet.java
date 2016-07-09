@@ -16,7 +16,7 @@ public abstract class Objet implements java.io.Serializable{
 	int idPlayer;
 	public transient Shape collisionBox;
 	public boolean moving; // Tell is this object can move
-	
+	public float lifepoints;
 	public void setXY(Point p){
 		this.p = p;
 		this.collisionBox.setCenterX(p.x);

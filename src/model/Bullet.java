@@ -6,11 +6,7 @@ import org.newdawn.slick.geom.Circle;
 
 public class Bullet extends Objet {
 	
-	
-	/**
-	 * 
-	 */
-	
+		
 	Point direction;
 	float radius;
 	
@@ -24,6 +20,7 @@ public class Bullet extends Objet {
 		setXY(origin);
 		
 	}
+	
 	@Override
 	public void updateSpec(InputModel im) {
 		// Put acceleration toward direction
