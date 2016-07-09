@@ -38,6 +38,7 @@ public abstract class Objet {
 	
 	
 	public void update(Point acc){
+		// Calculate acceleration considering the input
 		// Update physic
 		updatePhysic(acc);
 		//Update Spec
