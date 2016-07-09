@@ -24,7 +24,7 @@ public class Bullet extends Objet {
 	@Override
 	public void updateSpec(InputModel im) {
 		// Put acceleration toward direction
-		Point acc = new Point(0f,0.1f*Data.G);
+		Point acc = new Point(0f,0f);
 		acc = Point.add(acc, Point.multiply(direction,Data.ACCBullet ));
 		setV(acc);		
 	}

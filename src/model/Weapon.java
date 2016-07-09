@@ -38,6 +38,7 @@ public  class Weapon extends Objet {
 		state+=Data.DT;
 		if(im.isPressedLeftClick && state>Data.chargeTime){
 			shot(Point.sub(im.mouse, p));
+			state= 0f;
 		}
 		// Update all the bullets
 		Vector<Bullet> toRemove = new Vector<Bullet>();
