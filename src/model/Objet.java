@@ -16,7 +16,6 @@ public abstract class Objet implements java.io.Serializable{
 	public float dt;
 	public transient Shape collisionBox;
 	public boolean moving; // Tell is this object can move
-	public boolean contact=false;
 	
 	public void setXY(Point p){
 		this.p = p;
@@ -35,13 +34,8 @@ public abstract class Objet implements java.io.Serializable{
 
 	
 	public void setV(Point a){
-		if(contact){
-			v = Point.multiply(v, Data.Fcontact);
-		}else{
-			Point.multiply(v, Data.Flibre);
-		}
-		
 		v =  Point.add(v, Point.multiply(a,dt));
+		this.applyFrottement();
 	}
 	
 	public void setPos(){
@@ -57,5 +51,5 @@ public abstract class Objet implements java.io.Serializable{
 	
 	public abstract void updateSpec(InputModel im);	 // What to do with inputs
 	public abstract void draw(Graphics g);
-	
+	public abstract void applyFrottement();
 }

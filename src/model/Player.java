@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Vector;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -14,6 +16,11 @@ public class Player extends Objet {
 	private static final long serialVersionUID = 4186225280918342257L;
 
 	public float radius;
+	public boolean isMoving;
+
+	public Vector<Integer> indexPlateforme = new Vector<Integer>();
+	public Vector<Integer> orientationContact = new Vector<Integer>();
+
 
 
 	public Player(float radius,Point p, float dt){
@@ -29,18 +36,20 @@ public class Player extends Objet {
 		((Circle)this.collisionBox).setRadius(r);
 	}
 
-
 	@Override
 	public void updateSpec(InputModel im) {
-
+		isMoving = false;
+		boolean contact = this.indexPlateforme.size()>0;
 		Point acc = new Point(0f,Data.G);
 		if(im.isKeyDown(Input.KEY_D)  ){
+//			isMoving = true;
 			acc = Point.add(acc, new Point(contact ? Data.ACCContact : Data.ratioVertical*Data.ACCLibre ,0));
 		}
-		if(im.isKeyPressed(Input.KEY_Z) && this.contact){
+		if(im.isKeyPressed(Input.KEY_Z) && this.orientationContact.contains(4)){
 			this.v = Point.add(this.v, new Point(0f,-Data.speedJump));
 		}
 		if(im.isKeyDown(Input.KEY_Q) ){
+//			isMoving = true;
 			acc = Point.add(acc, new Point(contact ? -Data.ACCContact : -Data.ratioVertical*Data.ACCLibre,0));
 		}
 		if(im.isKeyDown(Input.KEY_S) ){
@@ -62,6 +71,19 @@ public class Player extends Objet {
 		g.setAntiAlias(false);
 
 
+	}
+
+	@Override
+	public void applyFrottement() {
+		float coefFrottement = Data.Flibre;
+		if(!isMoving){
+			for(int i =0; i<this.indexPlateforme.size(); i++){
+				if(orientationContact.get(i)==4){
+					coefFrottement*=Game.g.plateau.plateforms.get(indexPlateforme.get(i)).coefFrottement;
+				}
+			}
+		}
+		this.v = Point.multiply(v, coefFrottement);
 	}
 
 
