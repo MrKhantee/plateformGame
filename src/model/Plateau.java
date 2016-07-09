@@ -10,20 +10,19 @@ public class Plateau implements java.io.Serializable{
 	
 	public Vector<Plateform> plateforms;
 	public Vector<Player> players;
-	
-	public float sizeX=2000, sizeY=1000;
+
 	
 	public Plateau(){
 		this.plateforms = new Vector<Plateform>();
 		this.players = new Vector<Player>();
 		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(500f,50f),Data.DT));
 		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(50f,50f),Data.DT));
-		this.plateforms.addElement(new Plateform(0,Game.g.resY-10,Game.g.resX,10));
-		this.plateforms.addElement(new Plateform(0,0,Game.g.resX,10));
-		this.plateforms.addElement(new Plateform(0,0,10,Game.g.resY));
-		this.plateforms.addElement(new Plateform(Game.g.resX-10,0,10,Game.g.resY));
-		this.plateforms.addElement(new Plateform(350,Game.g.resY-400,300,10));
-		this.plateforms.addElement(new Plateform(1200,Game.g.resY-700,250,10));
+		this.plateforms.addElement(new Plateform(0,Data.sizeYPlateau-10,Data.sizeXPlateau,400));
+		this.plateforms.addElement(new Plateform(0,0,Data.sizeXPlateau,10));
+		this.plateforms.addElement(new Plateform(0,0,10,Data.sizeYPlateau));
+		this.plateforms.addElement(new Plateform(Data.sizeXPlateau-10,0,10,Data.sizeYPlateau));
+		this.plateforms.addElement(new Plateform(350,Data.sizeYPlateau-400,300,10));
+		this.plateforms.addElement(new Plateform(1200,Data.sizeYPlateau-700,250,10));
 	}
 
 	public void update(Vector<InputModel> ims){
