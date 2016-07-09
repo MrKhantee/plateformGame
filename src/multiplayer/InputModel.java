@@ -34,6 +34,9 @@ public class InputModel implements java.io.Serializable{
 		for(String s  : pressed){
 			keypressed.add(Integer.parseInt(s));
 		}
+		
+		isPressedLeftClick = res[2].equals("1");
+		isPressedRightClick = res[3].equals("1");
 	}
 	
 	public InputModel(Input input){
@@ -70,6 +73,10 @@ public class InputModel implements java.io.Serializable{
 		for(int k : keypressed){
 			result+= k+",";
 		}
+		result+=";";
+		result+=isPressedLeftClick ? 1 : 0;
+		result+=";";
+		result+=isPressedRightClick ? 1 : 0;
 		return result;
 	}
 
