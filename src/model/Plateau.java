@@ -6,7 +6,7 @@ import org.newdawn.slick.Graphics;
 
 import multiplayer.InputModel;
 
-public class Plateau {
+public class Plateau implements java.io.Serializable{
 	
 	public Vector<Plateform> plateforms;
 	public Vector<Player> players;
@@ -99,4 +99,5 @@ public class Plateau {
 		}
 		ply.setXY(new Point(newX, newY));
 	}
+	
 }

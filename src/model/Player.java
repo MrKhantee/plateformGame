@@ -6,8 +6,13 @@ import org.newdawn.slick.geom.Circle;
 
 import multiplayer.InputModel;
 
-public class Player extends Objet{
+public class Player extends Objet implements java.io.Serializable{
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4186225280918342257L;
 	
 	public float radius;
 	

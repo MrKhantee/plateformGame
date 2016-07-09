@@ -6,7 +6,12 @@ import org.newdawn.slick.geom.Shape;
 
 import multiplayer.InputModel;
 
-public abstract class Objet {
+public abstract class Objet implements java.io.Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	// Physic
 	public Point p;
