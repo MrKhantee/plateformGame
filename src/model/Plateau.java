@@ -28,7 +28,7 @@ public class Plateau implements java.io.Serializable{
 		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(1820f,50f),1));
 		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(100f,50f),2));
 		// Bords de la map
-		this.plateforms.addElement(new PlateformLava(0,Data.sizeYPlateau-10,Data.sizeXPlateau,400));
+		this.plateforms.addElement(new PlateformLava(0,Data.sizeYPlateau-10,Data.sizeXPlateau,40));
 		this.plateforms.addElement(new Plateform(0,-10,Data.sizeXPlateau,10));
 		this.plateforms.addElement(new Plateform(-10,0,10,Data.sizeYPlateau));
 		this.plateforms.addElement(new Plateform(Data.sizeXPlateau,0,10,Data.sizeYPlateau));
