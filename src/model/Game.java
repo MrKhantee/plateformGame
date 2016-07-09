@@ -63,7 +63,6 @@ public class Game extends BasicGame{
 		this.resX = resolutionX;
 		this.resY = resolutionY;
 		Data.ratioSpace = Game.g.resX/Data.sizeXPlateau;
-		Data.ratioSpace = 0.5f;
 		this.plateau = new Plateau();
 		try {
 			iahost = InetAddress.getByName(iphost);
