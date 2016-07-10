@@ -11,6 +11,7 @@ public class GameSound  {
 	public static Sound death;
 	public static Sound jump;
 	public static Sound injury;
+	public static Sound bonus;
 	
 	
 	public static Music verdi;
@@ -21,6 +22,8 @@ public class GameSound  {
 			death = new Sound("sound/death.ogg");
 			jump = new Sound("sound/jump1.ogg");
 			injury = new Sound("sound/injury.ogg");
+			bonus = new Sound("sound/bonus.ogg");
+			
 			verdi = new Music("sound/intro_verdi.ogg");
 			
 		} catch (SlickException e) {
@@ -40,6 +43,8 @@ public class GameSound  {
 			return jump;
 		case 3 :
 			return injury;
+		case 4 :
+			return bonus;
 		default:
 			return null;
 		}
@@ -57,6 +62,9 @@ public class GameSound  {
 		}
 		if(s==injury){
 			return 3;
+		}
+		if(s==bonus){
+			return 4;
 		}
 		return -1;
 	}
