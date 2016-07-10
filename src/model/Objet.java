@@ -12,15 +12,22 @@ public abstract class Objet implements java.io.Serializable{
 	
 	// Physic
 	public Point p;
+	public Point pold;
 	public Point v;
 	int idPlayer;
 	public Shape collisionBox;
 	public boolean moving; // Tell is this object can move
 	public float lifepoints;
 	public void setXY(Point p){
+		if(this.pold==null){
+			this.pold = p ;
+		}else{
+			this.pold = this.p;
+		}
 		this.p = p;
 		this.collisionBox.setCenterX(p.x);
 		this.collisionBox.setCenterY(p.y);
+
 	}
 	
 	

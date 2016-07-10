@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Line;
 
 import plateform.Plateform;
 import plateform.PlateformGlace;
@@ -69,6 +70,8 @@ public class Plateau implements java.io.Serializable{
 				i+=1;
 			}
 			for(Bullet b : ply.weapon.bullets){
+
+				Line l = new Line(b.pold.x, b.pold.y,b.p.x,b.p.y);
 				for(Player p : this.players){
 					if(p!=ply && p.collisionBox.intersects(b.collisionBox)){
 						this.handleCollision(p, b);
@@ -80,8 +83,12 @@ public class Plateau implements java.io.Serializable{
 						this.handleCollision(plt, b);
 						
 					}
+					if(plt.collisionBox.intersects(l)){
+						this.handleCollision(plt, b);	
+					}
 					
 				}
+				
 				
 			}
 		}
@@ -195,6 +202,9 @@ public class Plateau implements java.io.Serializable{
 	}
 	
 	public void handleCollision(Player p , Bullet b){
+		if(b.lifepoints<0f){
+			return;
+		}
 		p.lifepoints-= Data.damageBullet;
 		b.lifepoints = -1f;
 		p.timeoutGotHit = 10;
