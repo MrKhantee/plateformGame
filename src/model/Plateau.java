@@ -21,7 +21,7 @@ public class Plateau implements java.io.Serializable{
 	public Vector<Player> players;
 	public boolean victory;
 	public int winner;
-	
+	public Vector<Integer> soundsToPlay = new Vector<Integer>();
 	
 	public Plateau(){
 		this.plateforms = new Vector<Plateform>();
@@ -98,16 +98,13 @@ public class Plateau implements java.io.Serializable{
 		
 		// Condition of victory
 		for(Player p : players){
-			if(p.lifepoints<0f){
-				System.out.println(p.idPlayer);
-				System.out.println("Vanneau game" + Game.currentPlayer);
-				System.out.println("vanneau2");
+			if(p.lifepoints<0f && winner==0){
 				victory=true;
+				this.soundsToPlay.addElement(GameSound.soundToId(GameSound.death));
 				winner = 3-p.idPlayer;
 				break;
 			}
 		}
-		
 	}
 	
 	public void draw(Graphics g){

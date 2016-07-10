@@ -63,6 +63,7 @@ public class Player extends Objet {
 			acc = Point.add(acc, new Point(contact ? Data.ACCContact : Data.ratioVertical*Data.ACCLibre ,0));
 		}
 		if(im.isKeyPressed(Input.KEY_SPACE) && this.orientationContact.contains(4)){
+			Game.g.plateau.soundsToPlay.addElement(GameSound.soundToId(GameSound.jump));
 			this.v = Point.add(this.v, new Point(0f,-Data.speedJump));
 		}
 		if(im.isKeyDown(Input.KEY_Q) ){
