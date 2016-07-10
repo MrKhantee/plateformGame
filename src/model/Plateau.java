@@ -208,6 +208,7 @@ public class Plateau implements java.io.Serializable{
 		p.lifepoints-= Data.damageBullet;
 		b.lifepoints = -1f;
 		p.timeoutGotHit = 10;
+		this.soundsToPlay.addElement(GameSound.soundToId(GameSound.injury));
 	}
 	
 	public void handleCollision(Plateform p , Bullet b){

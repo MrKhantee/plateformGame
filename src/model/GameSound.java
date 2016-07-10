@@ -10,6 +10,9 @@ public class GameSound  {
 	public static Sound shotgun ;
 	public static Sound death;
 	public static Sound jump;
+	public static Sound injury;
+	
+	
 	public static Music verdi;
 	
 	public static void init(){
@@ -17,7 +20,11 @@ public class GameSound  {
 			shotgun = new Sound("sound/shotgun.ogg");
 			death = new Sound("sound/death.ogg");
 			jump = new Sound("sound/jump1.ogg");
+			injury = new Sound("sound/injury.ogg");
+			
+			
 			verdi = new Music("sound/intro_verdi.ogg");
+			
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -33,6 +40,8 @@ public class GameSound  {
 			return death;
 		case 2 :
 			return jump;
+		case 3 :
+			return injury;
 		default:
 			return null;
 		}
@@ -47,6 +56,9 @@ public class GameSound  {
 		}
 		if(s==jump){
 			return 2;
+		}
+		if(s==injury){
+			return 3;
 		}
 		return -1;
 	}
