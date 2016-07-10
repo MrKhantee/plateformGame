@@ -21,8 +21,6 @@ public class GameSound  {
 			death = new Sound("sound/death.ogg");
 			jump = new Sound("sound/jump1.ogg");
 			injury = new Sound("sound/injury.ogg");
-			
-			
 			verdi = new Music("sound/intro_verdi.ogg");
 			
 		} catch (SlickException e) {
