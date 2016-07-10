@@ -19,40 +19,57 @@ public class Plateau implements java.io.Serializable{
 	
 	public Vector<Plateform> plateforms;
 	public Vector<Player> players;
+	public Vector<Bonus> bonus;
 	public boolean victory;
 	public int winner;
 	
+	//Bonus
+	public float timerBonus = Data.timeBonus;
 	
 	public Plateau(){
 		this.plateforms = new Vector<Plateform>();
 		this.players = new Vector<Player>();
+		this.bonus = new Vector<Bonus>();
 		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(1820f,50f),1));
 		this.players.add(new Player(Data.RADIUS_PLAYER, new Point(100f,50f),2));
 		// Bords de la map
 		this.plateforms.addElement(new PlateformLava(0,Data.sizeYPlateau-10,Data.sizeXPlateau,40));
-		this.plateforms.addElement(new Plateform(0,-10,Data.sizeXPlateau,10));
+		this.plateforms.addElement(new Plateform(0,-10,Data.sizeXPlateau,60));
 		this.plateforms.addElement(new Plateform(-10,0,10,Data.sizeYPlateau));
 		this.plateforms.addElement(new Plateform(Data.sizeXPlateau,0,10,Data.sizeYPlateau));
 		// Autres 
-		this.plateforms.addElement(new PlateformGlace(350,Data.sizeYPlateau-250,200,10));
-		this.plateforms.addElement(new PlateformTrampoline(1750,800,70,10));
-		this.plateforms.addElement(new PlateformTrampoline(50,600,70,10));
-		this.plateforms.addElement(new Plateform(1200,400,200,10));
-		this.plateforms.addElement(new Plateform(800,600,200,10));
-		this.plateforms.addElement(new Plateform(450,1030,420,10));
-		this.plateforms.addElement(new Plateform(1150,1030,220,10));
-		this.plateforms.addElement(new Plateform(1350,800,200,10));
-		this.plateforms.addElement(new Plateform(450,130,10,280));
-		this.plateforms.addElement(new PlateformGlace(450,400,250,10));
-		this.plateforms.addElement(new PlateformGlace(250,300,200,10));
+		this.plateforms.addElement(new PlateformGlace(350,Data.sizeYPlateau-180,200,10));
+		this.plateforms.addElement(new PlateformTrampoline(1750,720,70,10));
+		this.plateforms.addElement(new PlateformTrampoline(50,620,70,10));
+		this.plateforms.addElement(new Plateform(1200,420,200,10));
+		this.plateforms.addElement(new Plateform(800,620,200,10));
+		this.plateforms.addElement(new Plateform(450,1050,420,10));
+		this.plateforms.addElement(new Plateform(1150,1050,220,10));
+		this.plateforms.addElement(new Plateform(1350,820,200,10));
+		this.plateforms.addElement(new Plateform(450,150,10,280));
+		this.plateforms.addElement(new PlateformGlace(450,430,250,10));
+		this.plateforms.addElement(new PlateformGlace(250,320,200,10));
 
 	}
 
 	public void update(Vector<InputModel> ims){
+		// Apparition des bonus
+		this.timerBonus-=Data.DT;
+		if(this.timerBonus<0){
+			this.bonus.addElement(new Bonus(Bonus.TypeBonus.getRandomBonus(),new Point((float)(Data.sizeXPlateau*Math.random()),(float)(Data.sizeYPlateau*Math.random()))));
+			this.timerBonus = Data.timeBonus;
+		}
 		for(Plateform plt : this.plateforms){
 			plt.update(null);
 		}
-			
+		Vector<Bonus> toRemove = new Vector<Bonus>();
+		for(Bonus bns : this.bonus){
+			bns.update(null);
+			if(bns.remainingTime<0){
+				toRemove.add(bns);
+			}
+		}
+		
 		for(int i=0; i<this.players.size(); i++){
 			this.players.get(i).update(ims.get(i));
 		}
@@ -89,13 +106,18 @@ public class Plateau implements java.io.Serializable{
 					if(plt.collisionBox.intersects(l)){
 						this.handleCollision(plt, b);	
 					}
-					
 				}
-				
-				
+			}
+			for(Bonus bns : this.bonus){
+				if(bns.collisionBox.intersects(ply.collisionBox)){
+					toRemove.add(bns);
+					ply.currentBonus.add(bns);
+					bns.setXY(new Point(400,20));
+					bns.remainingTime = Data.lengthBonusPlayer;
+				}
 			}
 		}
-		
+		this.bonus.removeAll(toRemove);
 		// Condition of victory
 		for(Player p : players){
 			if(p.lifepoints<0f){
@@ -129,23 +151,36 @@ public class Plateau implements java.io.Serializable{
 		for(Player ply : this.players){
 			ply.draw(g);
 		}
+		for(Bonus bns : this.bonus){
+			bns.draw(g);
+		}
 		
 		// Draw lifepoints
-		float sizeLifeX = 100f;
-		float sizeLifeY = 10f;
+		float sizeLifeX = 150f;
+		float sizeLifeY = 15f;
+		g.setColor(Color.black);
+		g.fillRect(0, 0, Game.resX, 50);
 		if(players.size()==2){
-			int idx = 0;
+			int idx = 1;
 			for(Player p : players ){
 				g.setColor(Color.white);
-				g.drawString("Player "+idx, 10f+(Game.resX - 300f)*idx, 7f);
+				g.drawString("Player "+idx, Game.resX/2 + (Game.resX/2-100)*((idx-1)*2-1)-45, 7f);
 				g.setColor(Color.red);
-				g.fillRect(100f+(Game.resX - 300f)*idx,10f,sizeLifeX,sizeLifeY);
-				g.setColor(Color.green);
-				g.fillRect(100f+(Game.resX - 300f)*idx,10f,sizeLifeX*p.lifepoints/Data.maxLifepoints,sizeLifeY);
+				g.fillRect(Game.resX/2 + (Game.resX/2-250)*((idx-1)*2-1)-sizeLifeX/2,10f,sizeLifeX,sizeLifeY);
+				g.setColor(p.color);
+				g.fillRect(Game.resX/2 + (Game.resX/2-250)*((idx-1)*2-1)-sizeLifeX/2,10f,sizeLifeX*p.lifepoints/Data.maxLifepoints,sizeLifeY);
 				idx++;
+				int i =0;
+				for(Bonus bns : p.currentBonus){
+					bns.p.x = Game.resX/2 + (200-i*50)*((idx-1)*2-1);
+					System.out.println(bns.p.x);
+					bns.draw(g);
+					i+=1;
+				}
 			}
 		}
-
+		g.setColor(Color.white);
+		g.drawLine(0, 30f+sizeLifeY, Game.resX, 30f+sizeLifeY);
 	}
 	
 	public void handleCollision(Player ply, Plateform plt){

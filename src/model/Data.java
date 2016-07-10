@@ -22,7 +22,7 @@ public class Data {
 	
 	// Frottements
 	public static float Flibre = 0.99f;
-	public static float Fplateforme = 0.75f;
+	public static float Fplateforme = 0.85f;
 	public static float Fglace = 0.95f;
 	public static float Flava = 0.4f;
 	
@@ -39,5 +39,12 @@ public class Data {
 	public static float bulletRadius = 6f;
 	public static float weaponRadius = 3f;
 	public static float chargeTime = 10f;
+	public static float chargeTimeBonus = 3f;
+	
+	// Bonus
+	public static float lengthBonus = 100f;
+	public static float lengthBonusPlayer = 100f;
+	public static float bonusFrottement = 1.005f;
+	public static float timeBonus = 50f;
 	
 }

@@ -35,9 +35,21 @@ public  class Weapon extends Objet {
 	
 	@Override
 	public void updateSpec(InputModel im) {
+		
 		state=Math.min(state+Data.DT, Data.chargeTime);
-		if(im.isPressedLeftClick && state>=Data.chargeTime){
+		boolean flagCadenceTir = false;
+		boolean flagTripleShot = false;
+		for(Bonus bns :Game.g.plateau.players.get(idPlayer-1).currentBonus){
+			flagCadenceTir = flagCadenceTir || bns.type==Bonus.TypeBonus.CADENCETIR;
+			flagTripleShot = flagTripleShot || bns.type==Bonus.TypeBonus.TRIPLESHOT;
+		}
+		float seuil = flagCadenceTir ? Data.chargeTimeBonus : Data.chargeTime;
+		if(im.isPressedLeftClick && state>=seuil){
 			shot(Point.sub(im.mouse, p));
+			if(flagTripleShot){
+				shot(Point.add(new Point(0,100), Point.sub(im.mouse, p)));
+				shot(Point.add(new Point(0,-100), Point.sub(im.mouse, p)));
+			}
 			state= 0f;
 		}
 		// Update all the bullets
