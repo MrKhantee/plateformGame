@@ -19,6 +19,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 
 public class Game extends BasicGame{
 
@@ -32,7 +33,9 @@ public class Game extends BasicGame{
 	public Plateau plateau;
 
 	public Color bgcolor = Color.black;
-
+	
+	
+	
 
 
 
@@ -61,6 +64,8 @@ public class Game extends BasicGame{
 	public Game(int resolutionX, int resolutionY) {
 		super("Vicier");
 		Game.g = this;
+		GameSound.init();
+		GameSound.verdi.loop();
 		resX = resolutionX;
 		resY = resolutionY;
 		Data.ratioSpace = Game.resX/Data.sizeXPlateau;
@@ -111,7 +116,12 @@ public class Game extends BasicGame{
 			} else {
 				ims.add(new InputModel());
 			}
-			this.plateau.update(ims);	
+			this.plateau.update(ims);
+			if(this.plateau.winner!=0){
+				if(im.isPressedRightClick){
+					this.plateau = new Plateau();
+				}
+			}
 			// on envoie le plateau
 			this.send(serialize(this.plateau));
 		} else {
@@ -123,6 +133,18 @@ public class Game extends BasicGame{
 				this.updatePlateauFromString(this.receivedMessage.remove(0));
 			}
 		}
+		
+		// Play plateau sounds
+		for(Integer i : plateau.soundsToPlay){
+			Sound s = GameSound.getSoundById(i);
+			if( s!=null){
+				s.play();
+			}
+		}
+		plateau.soundsToPlay.clear();
+		
+		
+
 	}
 
 	public static float getPointToDraw(float f){

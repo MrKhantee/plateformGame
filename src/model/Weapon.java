@@ -31,6 +31,8 @@ public  class Weapon extends Objet {
 		if(direction.norm()>0){
 			bullets.add(new Bullet(p,direction,idPlayer));
 		}
+		// Play sound
+		Game.g.plateau.soundsToPlay.addElement(GameSound.soundToId(GameSound.shotgun));
 	}
 	
 	@Override

@@ -12,20 +12,21 @@ import plateform.PlateformLava;
 import plateform.PlateformTrampoline;
 
 public class Plateau implements java.io.Serializable{
-	
+
 	/**
 	 * 
 	 */
-	
+
 	public Vector<Plateform> plateforms;
 	public Vector<Player> players;
 	public Vector<Bonus> bonus;
 	public boolean victory;
 	public int winner;
-	
+
 	//Bonus
 	public float timerBonus = Data.timeBonus;
-	
+	public Vector<Integer> soundsToPlay = new Vector<Integer>();
+
 	public Plateau(){
 		this.plateforms = new Vector<Plateform>();
 		this.players = new Vector<Player>();
@@ -56,7 +57,7 @@ public class Plateau implements java.io.Serializable{
 		// Apparition des bonus
 		this.timerBonus-=Data.DT;
 		if(this.timerBonus<0){
-			this.bonus.addElement(new Bonus(Bonus.TypeBonus.getRandomBonus(),new Point((float)(Data.sizeXPlateau*Math.random()),(float)(Data.sizeYPlateau*Math.random()))));
+			this.bonus.addElement(new Bonus(Bonus.TypeBonus.getRandomBonus(),new Point((float)(Data.sizeXPlateau*Math.random()),(float)(50+(Data.sizeYPlateau-50)*Math.random()))));
 			this.timerBonus = Data.timeBonus;
 		}
 		for(Plateform plt : this.plateforms){
@@ -69,7 +70,7 @@ public class Plateau implements java.io.Serializable{
 				toRemove.add(bns);
 			}
 		}
-		
+
 		for(int i=0; i<this.players.size(); i++){
 			this.players.get(i).update(ims.get(i));
 		}
@@ -97,11 +98,11 @@ public class Plateau implements java.io.Serializable{
 						this.handleCollision(p, b);	
 					}
 				}
-				
+
 				for(Plateform plt : this.plateforms){
 					if(plt.collisionBox.intersects(b.collisionBox)){
 						this.handleCollision(plt, b);
-						
+
 					}
 					if(plt.collisionBox.intersects(l)){
 						this.handleCollision(plt, b);	
@@ -111,29 +112,31 @@ public class Plateau implements java.io.Serializable{
 			for(Bonus bns : this.bonus){
 				if(bns.collisionBox.intersects(ply.collisionBox)){
 					toRemove.add(bns);
-					ply.currentBonus.add(bns);
-					bns.setXY(new Point(400,20));
-					bns.remainingTime = Data.lengthBonusPlayer;
+					if(bns.type == Bonus.TypeBonus.HEALTH){
+						this.soundsToPlay.addElement(GameSound.soundToId(GameSound.bonus));
+						ply.lifepoints=Math.min(ply.lifepoints+Data.bonusLifePoint,Data.maxLifepoints);
+					} else {
+						ply.currentBonus.add(bns);
+						bns.setXY(new Point(400,20));
+						bns.remainingTime = Data.lengthBonusPlayer;
+					}
 				}
 			}
 		}
 		this.bonus.removeAll(toRemove);
 		// Condition of victory
 		for(Player p : players){
-			if(p.lifepoints<0f){
-				System.out.println(p.idPlayer);
-				System.out.println("Vanneau game" + Game.currentPlayer);
-				System.out.println("vanneau2");
+			if(p.lifepoints<0f && winner==0){
 				victory=true;
+				this.soundsToPlay.addElement(GameSound.soundToId(GameSound.death));
 				winner = 3-p.idPlayer;
 				break;
 			}
 		}
-		
 	}
-	
+
 	public void draw(Graphics g){
-		
+
 		if(victory){
 			if(winner==Game.currentPlayer){
 				g.setColor(Color.white);
@@ -144,7 +147,7 @@ public class Plateau implements java.io.Serializable{
 			}
 			return;
 		}
-		
+
 		for(Plateform plt : this.plateforms){
 			plt.draw(g);
 		}
@@ -154,7 +157,7 @@ public class Plateau implements java.io.Serializable{
 		for(Bonus bns : this.bonus){
 			bns.draw(g);
 		}
-		
+
 		// Draw lifepoints
 		float sizeLifeX = 150f;
 		float sizeLifeY = 15f;
@@ -182,7 +185,7 @@ public class Plateau implements java.io.Serializable{
 		g.setColor(Color.white);
 		g.drawLine(0, 30f+sizeLifeY, Game.resX, 30f+sizeLifeY);
 	}
-	
+
 	public void handleCollision(Player ply, Plateform plt){
 		/*On consid�re pour l'instant que nos natural objets sont carr�s
 		 * il faut dans un premier temps d�terminer de quel c�t� �jecter l'objet
@@ -238,7 +241,7 @@ public class Plateau implements java.io.Serializable{
 		ply.orientationContact.add(sector);
 		ply.setXY(new Point(newX, newY));
 	}
-	
+
 	public void handleCollision(Player p , Bullet b){
 		if(b.lifepoints<0f){
 			return;
@@ -246,10 +249,11 @@ public class Plateau implements java.io.Serializable{
 		p.lifepoints-= Data.damageBullet;
 		b.lifepoints = -1f;
 		p.timeoutGotHit = 10;
+		this.soundsToPlay.addElement(GameSound.soundToId(GameSound.injury));
 	}
-	
+
 	public void handleCollision(Plateform p , Bullet b){
 		b.lifepoints = -1f;
 	}
-	
+
 }
