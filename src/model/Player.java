@@ -25,6 +25,9 @@ public class Player extends Objet {
 	
 	public boolean directionRegard = true;
 	
+	// Bonus
+	public Vector<Bonus> currentBonus;
+	
 
 	public boolean isMoving;
 	public Weapon weapon;
@@ -40,6 +43,7 @@ public class Player extends Objet {
 		this.v = new Point(0,0);
 		this.lifepoints = Data.maxLifepoints;
 		this.idPlayer = idx;
+		this.currentBonus = new Vector<Bonus>();
 		if(idx==1){
 			this.color = Color.orange;
 		} else {
@@ -73,6 +77,15 @@ public class Player extends Objet {
 		if(im.isKeyDown(Input.KEY_S) ){
 			acc = Point.add(acc, new Point(0,contact ? Data.ACCContact : Data.ACCLibre));
 		}
+		// update les bonus
+		Vector<Bonus> toRemove = new Vector<Bonus>();
+		for(Bonus b : this.currentBonus){
+			b.remainingTime -= Data.DT;
+			if(b.remainingTime<0){
+				toRemove.add(b);
+			}
+		}
+		this.currentBonus.removeAll(toRemove);
 		this.setV(acc);
 		this.directionRegard = v.x>0;
 		this.weapon.v=  v.copy();
@@ -126,6 +139,12 @@ public class Player extends Objet {
 				}
 			}
 		}
+		for(Bonus bns :Game.g.plateau.players.get(idPlayer-1).currentBonus){
+			if(bns.type==Bonus.TypeBonus.HIGHERSPEED){
+				coefFrottement*=Data.bonusFrottement;
+			}
+		}
+		
 		this.v = Point.multiply(v, coefFrottement);
 	}
 
