@@ -16,7 +16,7 @@ public class Bullet extends Objet {
 		this.collisionBox = new Circle(origin.x-radius/2f,origin.y-radius/2f,radius);
 		this.direction = Point.divide(direction, direction.norm());
 		radius = Data.bulletRadius;
-		this.v = new Point(0,0);
+		this.v = Point.multiply(this.direction,Data.speedBullet);
 		setXY(origin);
 		
 	}
@@ -25,7 +25,7 @@ public class Bullet extends Objet {
 	public void updateSpec(InputModel im) {
 		// Put acceleration toward direction
 		Point acc = new Point(0f,0f);
-		acc = Point.add(acc, Point.multiply(direction,Data.ACCBullet ));
+//		acc = Point.add(acc, Point.multiply(direction,Data.ACCBullet ));
 		setV(acc);		
 	}
 
@@ -40,7 +40,7 @@ public class Bullet extends Objet {
 	@Override
 	public void applyFrottement() {
 		// TODO Auto-generated method stub
-		this.v = Point.multiply(v, Data.Fbullet);
+		// this.v = Point.multiply(v, Data.Fbullet);
 	}
 
 

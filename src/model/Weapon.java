@@ -35,8 +35,8 @@ public  class Weapon extends Objet {
 	
 	@Override
 	public void updateSpec(InputModel im) {
-		state+=Data.DT;
-		if(im.isPressedLeftClick && state>Data.chargeTime){
+		state=Math.min(state+Data.DT, Data.chargeTime);
+		if(im.isPressedLeftClick && state>=Data.chargeTime){
 			shot(Point.sub(im.mouse, p));
 			state= 0f;
 		}
@@ -56,6 +56,11 @@ public  class Weapon extends Objet {
 		// Draw all bullets
 		for(Bullet b : bullets){
 			b.draw(g);
+		}
+		// Create tempo
+		if(this.state<Data.chargeTime && this.idPlayer==Game.currentPlayer){
+			g.setColor(Color.blue);
+			g.fillArc((p.x-15)*Data.ratioSpace, (p.y-1.5f*Data.RADIUS_PLAYER-20)*Data.ratioSpace, 30*Data.ratioSpace, 30*Data.ratioSpace, -90f, -90f+360f*this.state/Data.chargeTime);
 		}
 
 	}

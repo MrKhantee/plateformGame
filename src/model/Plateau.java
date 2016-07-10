@@ -34,11 +34,17 @@ public class Plateau implements java.io.Serializable{
 		this.plateforms.addElement(new Plateform(-10,0,10,Data.sizeYPlateau));
 		this.plateforms.addElement(new Plateform(Data.sizeXPlateau,0,10,Data.sizeYPlateau));
 		// Autres 
-		this.plateforms.addElement(new PlateformGlace(350,Data.sizeYPlateau-350,400,20));
-		this.plateforms.addElement(new PlateformTrampoline(1750,800,100,20));
-		this.plateforms.addElement(new PlateformTrampoline(50,600,100,20));
-		this.plateforms.addElement(new Plateform(1200,Data.sizeYPlateau-700,400,20));
-		this.plateforms.addElement(new Plateform(250,1030,1420,20));
+		this.plateforms.addElement(new PlateformGlace(350,Data.sizeYPlateau-250,200,10));
+		this.plateforms.addElement(new PlateformTrampoline(1750,800,70,10));
+		this.plateforms.addElement(new PlateformTrampoline(50,600,70,10));
+		this.plateforms.addElement(new Plateform(1200,400,200,10));
+		this.plateforms.addElement(new Plateform(800,600,200,10));
+		this.plateforms.addElement(new Plateform(450,1030,420,10));
+		this.plateforms.addElement(new Plateform(1150,1030,220,10));
+		this.plateforms.addElement(new Plateform(1350,800,200,10));
+		this.plateforms.addElement(new Plateform(450,130,10,280));
+		this.plateforms.addElement(new PlateformGlace(450,400,250,10));
+		this.plateforms.addElement(new PlateformGlace(250,300,200,10));
 
 	}
 
