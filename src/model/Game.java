@@ -49,12 +49,13 @@ public class Game extends BasicGame{
 	boolean host;
 	
 	// Host and client
-	String ipclient = "25.80.20.162";
-	String iphost = "25.80.123.241";
+	String iphost = "25.80.20.162";
+	String ipclient = "25.80.123.241";
 	InetAddress iahost;
 	InetAddress iaclient;
 	// port
-	public int port = 2302;
+	public int porthost = 2302;
+	public int portclient = 2303;
 	// depots for senders
 	DatagramSocket server;
 	DatagramSocket client;
@@ -75,7 +76,6 @@ public class Game extends BasicGame{
 		try {
 			iahost = InetAddress.getByName(iphost);
 			iaclient = InetAddress.getByName(ipclient);
-			this.host = InetAddress.getLocalHost().equals(iahost);
 			boolean flag = false;
 			Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
 			while(!flag && e.hasMoreElements())
@@ -114,7 +114,10 @@ public class Game extends BasicGame{
 
 		try {
 			client = new DatagramSocket();
-			server = new DatagramSocket(port);
+			if(this.host)
+				server = new DatagramSocket(porthost);
+			else
+				server = new DatagramSocket(portclient);
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
@@ -233,13 +236,16 @@ public class Game extends BasicGame{
 	public void send(byte[] mb) {
 		//si on est sur le point de commencer à jouer, on n'envoie plus de requête de ping
 		InetAddress address = iahost;
+		int port = porthost;
 		if(host){
 			address = iaclient;
+			port = portclient;
 		}
-		DatagramPacket packet = new DatagramPacket(mb, mb.length, address, this.port);
+		DatagramPacket packet = new DatagramPacket(mb, mb.length, address, port);
 		packet.setData(mb);
 		try {
 			client.send(packet);
+			System.out.println(packet.getAddress());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
