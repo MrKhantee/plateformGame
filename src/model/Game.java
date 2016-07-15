@@ -8,9 +8,11 @@ import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.Vector;
 
 import org.newdawn.slick.AppGameContainer;
@@ -74,12 +76,28 @@ public class Game extends BasicGame{
 			iahost = InetAddress.getByName(iphost);
 			iaclient = InetAddress.getByName(ipclient);
 			this.host = InetAddress.getLocalHost().equals(iahost);
+			boolean flag = false;
+			Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
+			while(!flag && e.hasMoreElements())
+			{
+			    NetworkInterface n = (NetworkInterface) e.nextElement();
+			    Enumeration<InetAddress> ee = n.getInetAddresses();
+			    while (!flag && ee.hasMoreElements())
+			    {
+			        InetAddress i = (InetAddress) ee.nextElement();
+			        this.host = i.equals(iahost);
+			        flag = this.host;
+			    }
+			}
+
 			if(this.host){
+				System.out.println("vaneau");
 				Game.currentPlayer = 1;
 			}else{
+				System.out.println("vaneau2");
 				Game.currentPlayer = 2;
 			}
-		} catch (UnknownHostException e) {}
+		} catch (UnknownHostException | SocketException e) {}
 	}
 
 	@Override
