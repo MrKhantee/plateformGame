@@ -2,6 +2,7 @@ package main;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
+import java.net.InetAddress;
 
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
@@ -27,6 +28,7 @@ public class Main {
 //		System.out.println(LWJGLUtil.getPlatformName());
 		int resolutionX;
 		int resolutionY;
+		
 		if(pleinEcran){
 			resolutionX = (int)screenSize.getWidth();		
 			resolutionY = (int)screenSize.getHeight();
