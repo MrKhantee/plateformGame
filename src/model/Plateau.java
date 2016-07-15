@@ -176,7 +176,6 @@ public class Plateau implements java.io.Serializable{
 				int i =0;
 				for(Bonus bns : p.currentBonus){
 					bns.p.x = Game.resX/2 + (200-i*50)*((idx-1)*2-1);
-					System.out.println(bns.p.x);
 					bns.draw(g);
 					i+=1;
 				}

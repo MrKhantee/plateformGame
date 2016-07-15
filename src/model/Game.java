@@ -218,7 +218,7 @@ public class Game extends BasicGame{
 				server.setBroadcast(false);
 				server.setSoTimeout(1);
 				server.receive(packet);
-
+				System.out.println("vaneau");
 				this.receivedMessage.addElement(packet.getData());
 
 			} catch (SocketTimeoutException e) {
